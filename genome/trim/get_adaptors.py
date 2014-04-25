@@ -11,7 +11,9 @@ line = fd.next()
 
 seqs = set()
 while not line.startswith(">>"):
-    seqs.add(line.strip().split("\t")[0])
+    [sequence, coutnt, percent, hit] = line.strip().split("\t")[0:4]
+    if hit != "No Hit":
+        seqs.add(sequence)
     line = fd.next()
     
 for x in seqs:
