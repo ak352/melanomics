@@ -22,14 +22,14 @@ run_flagstat_pe()
     date
     echo "STATUS: Run flagstat"
     #files="/scratch/users/akrishna/bwa"
-    files="/scratch/users/sreinsbach/bwa/"
+    files="/scratch/users/sreinsbach/bwa"
     for k in ${files}/${sample}*.pe.bam
     do
 	input=${k}
 	#output=${OUT_DIR}/${sample}_flagstat.txt
 	CMD="${samtools} flagstat ${input}"
 	echo ${CMD}
-	#eval ${CMD}
+	eval ${CMD}
     done 
     echo "STATUS: done."
     date
@@ -40,20 +40,20 @@ run_flagstat_se()
 {
     date
     echo "STATUS: Run flagstat"
-    #files="/scratch/users/akrishna/bwa/"
-    files="/scratch/users/sreinsbach/bwa/"
+    files="/scratch/users/akrishna/bwa/"
+    #files="/scratch/users/sreinsbach/bwa"
     for k in ${files}/${sample}*.se.bam
     do
 	input=${k}
 	#output=${OUT_DIR}/${sample}_flagstat.txt
 	CMD="${samtools} flagstat ${input}"
 	echo ${CMD}
-	#eval ${CMD}
+	eval ${CMD}
     done
     echo "STATUS: done."
     date
 }
 
-make_directories
-run_flagstat_pe
+#make_directories
+#run_flagstat_pe
 run_flagstat_se

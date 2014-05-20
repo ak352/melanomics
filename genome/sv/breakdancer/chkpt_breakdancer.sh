@@ -17,15 +17,16 @@
 #
 #          Set number of resources
 #          1 core for 1 min
-#OAR -l /nodes=1/core=2,walltime=24:00:00
+#OAR -l /nodes=3/,walltime=24:00:00
 #	   If the job is killed, send signal SIGUSR2(12) 20s before killing the job ;
 #          then, resubmit the job in an identical way.
 #          Else, the job is terminated normally.
-
+#OAR -O breakdancer.stdout
+#OAR -E breakdancer.stderr
+#OAR -n Breakdancer
 #OAR -t idempotent
 #OAR --checkpoint 900
 #OAR --signal 12
-
 #####################################
 #                                   #
 #   The UL HPC specific directives  #
@@ -50,13 +51,23 @@ export LIBCR_DISABLE_NSCD=1
 EXIT_UNFINISHED=99
 
 # The task will be executed in 100s
-TASK="./commands.sh $1"
+TASK_FILE=task.sh
+./launch_breakdancer.sh $TASK_FILE
+if [ -s $TASK_FILE ]
+    then
+    TASK="./$TASK_FILE"
+    else
+    echo No tasks.
+    exit -1
+fi
+
+echo $TASK
 
 # Checkpoint context file, use the scratch filesystem if available
 CONTEXT=$SCRATCH
 [ "`df -T $SCRATCH | grep -c lustre`" == "0" ] && CONTEXT=$WORK
 CONTEXT=$PWD
-CONTEXT="$CONTEXT/$1"
+CONTEXT="$CONTEXT/melanomics.genome.breakdancer.context"
 echo CONTEXT = $CONTEXT
 
 # Run the task with blcr libraries
