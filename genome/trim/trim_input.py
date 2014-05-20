@@ -36,24 +36,41 @@ def fastq_fastqc(input_prefix, output_dir):
 		if sum(mates):
 			print " ".join(line)
 
+def usage():
+	return "Usage: python trim_input.py <base_dir> <sample_read_prefix> <output_prefix>\n" + \
+	    "Example: python trim_input.py /work/projects/melanomics/analysis/genome/ " + \
+	    "NHEM/fastqc/120827_SN386_0257_AC13YAACXX_NHEM_reprep_NoIndex_L00 NHEM/trim\n"
+
 if __name__ == "__main__":
-    base_dir="/work/projects/melanomics/analysis/genome/"
-    out_dir = "/work/projects/melanomics/analysis/genome/"
-    mkdir(out_dir)
+    if len(sys.argv) == 1:
+	    base_dir="/work/projects/melanomics/analysis/genome/"
+	    out_dir = "/work/projects/melanomics/analysis/genome/"
+	    mkdir(out_dir)
+	    samples = []
+            #for line in open("fastqc_files_1_34_wo_4PM"):
+            #for line in open("fastqc_files_1_34"):
+	    #for line in open("fastqc_files_35_48"): 
+	    #for line in open("test_fastqc_files2"): 
+	    for line in open("fastqc_files"):
+		    samples.append(line.rstrip())
 
-    samples = []
-    #for line in open("fastqc_files_1_34_wo_4PM"):
-    for line in open("test_fastqc_files"):
-	    #for line in open("fastqc_files_1_34"):
-	    #for line in open("fastqc_files_35_48"):
-	    samples.append(line.rstrip())
+	    for k in range(0, len(samples), 2):
+		    samples[k] = base_dir + samples[k]
+	    for k in range(1, len(samples), 2):
+		    samples[k] = out_dir + samples[k]
+	    for x in range(0, len(samples), 2):
+		    fastq_fastqc(samples[x], samples[x+1])
+    elif len(sys.argv) > 1:
+	    if len(sys.argv) == 4:
+		    base_dir = sys.argv[1]
+		    out_dir  = os.environ['$SCRATCH'] + "/"
+		    samples  = [sys.argv[2:4]]
+		    fastq_fastqc(samples[0], samples[1])
+	    else:
+		    sys.stderr.write(str(len(sys.argv)) + " arguments.\n")
+		    sys.stderr.write(usage())
 
-    for k in range(0, len(samples), 2):
-	    samples[k] = base_dir + samples[k]
-    for k in range(1, len(samples), 2):
-            samples[k] = out_dir + samples[k]
-    for x in range(0, len(samples), 2):
-        fastq_fastqc(samples[x], samples[x+1])
 
-    
-        
+
+ 
+	    

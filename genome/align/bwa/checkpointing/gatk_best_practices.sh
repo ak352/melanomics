@@ -83,8 +83,10 @@ sort_and_mark_duplicates()
 	output=${k%bam}sorted.markdup.bam
 	stout=${output%bam}stdout
 	sterr=${output%bam}stderr
+	context=${output%bam}context
+	context=${context##*/}
 	#echo ./run_sort_markduplicates.sh $input $output
-	oarsub -lcore=8,walltime=48 -tbigmem -n $sample -O $stout -E $sterr "./run_sort_markduplicates.sh $input $output"
+	oarsub -n $sample -O $stout -E $sterr -S "./run_sort_markduplicates.sh $input $output $context"
     done
 }
 
@@ -96,7 +98,12 @@ realign()
 	input=$k
 	output=${k%bam}realn.bam
 	intervals=${k%bam}realn.intervals
-	oarsub -lcore=2,walltime=24 -tbigmem -n $sample "./run_realignment.sh $input $ref $output $intervals"
+	stout=${output%bam}stdout
+        sterr=${output%bam}stderr
+        context=${output%bam}context
+        context=${context##*/}
+	#oarsub -lcore=2,walltime=24 -tbigmem -n $sample "./run_realignment.sh $input $ref $output $intervals"
+	oarsub -n $sample -O $stout -E $sterr -S "./run_realignment.sh $input $ref $output $intervals $context"
     done
 }
 
@@ -109,7 +116,12 @@ recalibrate()
 	input=$k
 	output=${k%bam}recal.bam
 	grp=${output%.bam}.grp
-	oarsub -lcore=2,walltime=24 -n $sample "./run_recalibrate.sh $input $ref $dbsnp $output $grp"
+	stout=${output%bam}stdout
+        sterr=${output%bam}stderr
+        context=${output%bam}context
+        context=${context##*/}
+	#oarsub -lcore=2,walltime=24 -n $sample "./run_recalibrate.sh $input $ref $dbsnp $output $grp"
+	oarsub -n $sample -O $stout -E $sterr -S "./run_recalibrate.sh $input $ref $dbsnp $output $grp $context" 
     done
     
 }
@@ -182,7 +194,7 @@ variant_recalibrate()
 #merge_pe_se NHEM
 
 
-#for n in 4 #2 5 6 7 8
+#for n in 2 4 #8 #4 2 5 6 7
 #do
 #    for m in NS #PM
 #    do
@@ -192,17 +204,23 @@ variant_recalibrate()
 #sort_and_mark_duplicates NHEM
 
 
-#realign patient_2_PM
-realign NHEM
+#for k in NHEM patient_6 patient_4_PM #pool #patient_2 #patient_6 #pool NHEM #patient_2 #patient_4_NS patient_4_PM patient_6 
+#do
+#    sort_and_mark_duplicates $k
+#done
+
 #for k in patient_2 patient_4_NS patient_4_PM patient_6 NHEM pool
 #do
 #    realign $k
 #done
+#realign NHEM
 
 #for k in patient_2 patient_4_NS patient_4_PM patient_6 NHEM pool
 #do
 #    recalibrate $k
 #done
+recalibrate NHEM
+
 
 #for k in NHEM pool #patient_2 patient_4_NS patient_4_PM patient_6 # NHEM pool patient_6
 #do

@@ -61,18 +61,18 @@ trim_both()
 
     
 
-    cmd1="$cmd1 mkdir $output_dir;"
+    #cmd1="$cmd1 mkdir $output_dir;"
 
-    trim_or_copy $fastq1 $fast_qc_output1
-    cmd1=$cmd1$cmd
+    #trim_or_copy $fastq1 $fast_qc_output1
+    #cmd1=$cmd1$cmd
     noadapter1=$out
-    trim_or_copy $fastq2 $fast_qc_output2
-    cmd1=$cmd1$cmd
+    #trim_or_copy $fastq2 $fast_qc_output2
+    #cmd1=$cmd1$cmd
     noadapter2=$out
 
     out=$TMPDIR/${fastq1##*/}.noadapter.quality_trimmed
-    quality $noadapter1 $noadapter2 $out
-    cmd1=$cmd1$cmd
+    #quality $noadapter1 $noadapter2 $out
+    #cmd1=$cmd1$cmd
 
     #Stage out
     input="$out*"
@@ -81,7 +81,7 @@ trim_both()
     cmd1="$cmd1 rsync -ah --progress $input $output_dir/.;"
     
     echo $cmd1
-    cmd1="oarsub -lcore=2,walltime=24 '$cmd1'"
+    #cmd1="oarsub -lcore=2,walltime=24 '$cmd1'"
     eval $cmd1
 
 }

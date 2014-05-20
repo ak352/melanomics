@@ -5,14 +5,16 @@ PICARD=/work/projects/melanomics/tools/picard/picard-tools-1.95/
 
 
 date
-echo "recalibration"
+echo "Recalibration"
 input=$1
 reference=$2
 dbsnp=$3
 output=$4
 grp=$5
 
-#time java -jar $GATK/GenomeAnalysisTK.jar  -T BaseRecalibrator -I ${input} -R ${reference} -o ${grp} -knownSites ${dbsnp} --filter_reads_with_N_cigar -rf BadCigar
-#time java -jar $GATK/GenomeAnalysisTK.jar -T PrintReads -R ${reference} -I ${input} -BQSR ${grp} -o ${output} --filter_reads_with_N_cigar -rf BadCigar
+time java -jar -XX:-UsePerfData $GATK/GenomeAnalysisTK.jar  -T BaseRecalibrator -I ${input} -R ${reference} -o ${grp} -knownSites ${dbsnp} --filter_reads_with_N_cigar -rf BadCigar
+time java -jar -XX:-UsePerfData $GATK/GenomeAnalysisTK.jar -T PrintReads -R ${reference} -I ${input} -BQSR ${grp} -o ${output} --filter_reads_with_N_cigar -rf BadCigar
 java -jar $PICARD/BuildBamIndex.jar \
     INPUT=$4
+date
+echo "Done"

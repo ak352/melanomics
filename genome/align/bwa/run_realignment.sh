@@ -9,7 +9,8 @@ input=$1
 reference=$2
 output=$3
 intervals=$4 
-time java -jar -Xmx64g ${GATK}/GenomeAnalysisTK.jar -T RealignerTargetCreator -I ${input} -R ${reference} -o ${intervals}
-time java -jar -Xmx64g ${GATK}/GenomeAnalysisTK.jar -T IndelRealigner -targetIntervals ${intervals} -I ${input} -o ${output} -R ${reference}
+time java -jar -Xmx64g -XX:-UsePerfData ${GATK}/GenomeAnalysisTK.jar -T RealignerTargetCreator -I ${input} -R ${reference} -o ${intervals}
+time java -jar -Xmx64g -XX:-UsePerfData ${GATK}/GenomeAnalysisTK.jar -T IndelRealigner -targetIntervals ${intervals} -I ${input} -o ${output} -R ${reference}
+echo "Done"
 date
 
