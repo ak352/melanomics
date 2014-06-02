@@ -128,25 +128,38 @@ recalibrate()
 
 merge()
 {
+    #Merge all lanes
     sample=$1
-    cmd=" ./run_merge_lanes.sh "
-    for k in $MYTMP/$sample.[0-9]*.lane[0-9].sorted.markdup.realn.recal.bam
-    do
-	cmd="$cmd $k "
-    done
-    cmd="$cmd $MYTMP/bwa/$sample.bam;"
-    #Reheader to allow multiple read groups in the header
-    cmd="${cmd} ./run_reheader.sh "
-    for k in $MYTMP/$sample.[0-9]*.lane[0-9].sorted.markdup.realn.recal.bam
-    do
-        cmd="$cmd $k "
-    done
-    cmd="$cmd $MYTMP/bwa/$sample.bam $MYTMP/bwa/$sample.reheader.bam" 
+    cmd="./run_merge_lanes.sh "
+    input_bams=`ls -1 $MYTMP/$sample.[0-9]*.lane[0-9].sorted.markdup.realn.recal.bam| sed 's/.*/& /g'| tr -d '\n'`
+    out=$MYTMP/$sample
+    sterr=$out.stderr
+    stout=$out.stdout
+    context=${out##*/}.context
+    cmd="$cmd $input_bams "
+    cmd="$cmd $MYTMP/$sample.bam"
+    cmd="$cmd $MYTMP/$sample.reheader.bam"
+    cmd="$cmd $context"
 
-    #oarsub -lcore=2,walltime=24 -n $sample "$cmd"
-    echo "oarsub -lcore=2,walltime=24 -n $sample $cmd"
+
+    #echo $cmd
+    oarsub -n $sample -O $stout -E $sterr -S "$cmd"
+    #echo "oarsub -lcore=2,walltime=24 -n $sample $cmd"
 
 }
+
+stage_out()
+{
+    sample=$1
+    echo Staging $sample BAM files and index out to WORK...
+    out=/work/projects/melanomics/analysis/genome/$sample/bam
+    mkdir $out
+    echo Copying $MYTMP/$sample.bam and $MYTMP/$sample.bai to $out/.
+    rsync -ah --progress $MYTMP/$sample.bam $out/.
+    rsync -ah --progress $MYTMP/$sample.bai $out/.
+    echo Done staging.
+}
+
 
 
 unifiedgenotyper()
@@ -203,35 +216,42 @@ variant_recalibrate()
 #done
 #sort_and_mark_duplicates NHEM
 
-
-#for k in NHEM patient_6 patient_4_PM #pool #patient_2 #patient_6 #pool NHEM #patient_2 #patient_4_NS patient_4_PM patient_6 
+#for n in 4 #5 #4 8 #2 6 7 #8 # 4 5
 #do
-#    sort_and_mark_duplicates $k
-#done
-
-#for k in patient_2 patient_4_NS patient_4_PM patient_6 NHEM pool
-#do
-#    realign $k
+#    for m in NS #PM
+#    do#
+#	realign patient_${n}_${m} 
+#    done
 #done
 #realign NHEM
 
-#for k in patient_2 patient_4_NS patient_4_PM patient_6 NHEM pool
+#for n in 4 #2 5 6 7 8
 #do
-#    recalibrate $k
+#    for m in NS #PM
+#    do
+#	recalibrate patient_${n}_${m}
+#    done
 #done
-recalibrate NHEM
+#recalibrate NHEM
+
+# for n in 4 #2 5 6 7 8
+# do
+#     for m in NS #PM
+#     do
+#         merge patient_${n}_${m}
+#     done
+# done
+merge NHEM
 
 
-#for k in NHEM pool #patient_2 patient_4_NS patient_4_PM patient_6 # NHEM pool patient_6
-#do
-#    merge_pe_se $k
-#done                                                                                                                                                                                                                                
-
-#for k in pool NHEM #patient_2 patient_4_NS patient_4_PM patient_6 #pool NHEM
-#do
-#    merge $k
-#done
-
+# for n in 2 4 5 6 7 8
+# do
+#     for m in NS PM
+#     do
+# 	stage_out patient_${n}_${m}
+#     done
+# done
+#stage_out NHEM
 
 #for k in patient_2 patient_4_NS patient_4_PM patient_6 NHEM pool
 #do

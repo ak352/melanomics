@@ -7,10 +7,10 @@ currd=$PWD
 
 #sample=patient_2
 sample=$1
-#tumour=${sample}_NS.bam
-#normal=${sample}_PM.bam
-tumour=${sample}_NS.120827.lane1.sorted.bam
-normal=${sample}_PM.120827.lane2.sorted.bam
+tumour=${sample}_NS.bam
+normal=${sample}_PM.bam
+#tumour=${sample}_NS.120827.lane1.sorted.bam
+#normal=${sample}_PM.120827.lane2.sorted.bam
 
 #1. Create a configuration file and insert size distributions
 date

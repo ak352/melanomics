@@ -22,5 +22,5 @@ The script will look for 2 BAM (tumour and normal) files for each sample under $
 5. Ensure that you have read access to $SCRATCH/bwa/sample_NS.bam and $SCRATCH/bwa/sample_NS.bam
 6. Run 
 ```bash
-./chkpt_breakdancer.sh
+oarsub -S ./chkpt_breakdancer.sh
 ```
