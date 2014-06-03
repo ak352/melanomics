@@ -150,6 +150,7 @@ merge()
 
 stage_out()
 {
+    MYTMP=/scratch/users/sreinsbach/bwa
     sample=$1
     echo Staging $sample BAM files and index out to WORK...
     out=/work/projects/melanomics/analysis/genome/$sample/bam
@@ -241,7 +242,7 @@ variant_recalibrate()
 #         merge patient_${n}_${m}
 #     done
 # done
-merge NHEM
+#merge NHEM
 
 
 # for n in 2 4 5 6 7 8
@@ -251,7 +252,7 @@ merge NHEM
 # 	stage_out patient_${n}_${m}
 #     done
 # done
-#stage_out NHEM
+stage_out NHEM
 
 #for k in patient_2 patient_4_NS patient_4_PM patient_6 NHEM pool
 #do

@@ -16,13 +16,13 @@ normal=${sample}_PM.bam
 date
 cd $OUT_DIR
 echo [Entering directory] cd $OUT_DIR
-echo "creating config file..."
+echo "creating config file for $sample ..."
 time bam2cfg.pl -g -h $IN_DIR/$tumour $IN_DIR/$normal > $sample.cfg
 date
 echo "done"
 #2. Detect SVs
 date
-echo "detecting structural variations..."
+echo "detecting structural variations for $sample..."
 time breakdancer-max -d $sample.ctx $sample.cfg > $sample.ctx
 date
 echo "done"
