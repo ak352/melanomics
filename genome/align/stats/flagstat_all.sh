@@ -20,9 +20,10 @@ make_directories()
 run_flagstat_pe()
 {
     date
-    echo "STATUS: Run flagstat"
-    #files="/scratch/users/akrishna/bwa"
-    files="/scratch/users/sreinsbach/bwa"
+    echo "STATUS: Run flagstat PM"
+    files="/scratch/users/akrishna/bwa"
+    #files="/scratch/users/sreinsbach/bwa"
+    #files="/work/projects/melanomics/analysis/genome/${sample}_PM/bam/"
     for k in ${files}/${sample}*.pe.bam
     do
 	input=${k}
@@ -39,9 +40,10 @@ run_flagstat_pe()
 run_flagstat_se()
 {
     date
-    echo "STATUS: Run flagstat"
+    echo "STATUS: Run flagstat NS"
     files="/scratch/users/akrishna/bwa/"
     #files="/scratch/users/sreinsbach/bwa"
+    #files="/work/projects/melanomics/analysis/genome/${sample}_NS/bam/"
     for k in ${files}/${sample}*.se.bam
     do
 	input=${k}
@@ -55,5 +57,5 @@ run_flagstat_se()
 }
 
 #make_directories
-#run_flagstat_pe
+run_flagstat_pe
 run_flagstat_se

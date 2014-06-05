@@ -181,6 +181,16 @@ variant_recalibrate()
     oarsub -lcore=$cores,walltime=24 -n $sample -t bigsmp "./run_variant_recalibrate.sh $input $output $dbsnp $ref $cores"
 }
 
+flagstat()
+{
+    directory=$MYTMP
+    ls -1 $directory/*.bam > $directory/bam_files
+    out=$MYTMP/bam_stats
+    sterr=$out.stderr
+    stout=$out.stdout
+    context=${out##*/}.context
+}
+
 
 ## Pipeline
 #index
@@ -252,9 +262,22 @@ variant_recalibrate()
 # 	stage_out patient_${n}_${m}
 #     done
 # done
-stage_out NHEM
+# stage_out NHEM
 
-#for k in patient_2 patient_4_NS patient_4_PM patient_6 NHEM pool
+for n in 2 4 5 6 7 8
+do
+    for m in NS PM
+    do
+	flagstat patient_${n}_${m}
+    done
+done
+flagstat NHEM
+
+
+
+
+
+#For k in patient_2 patient_4_NS patient_4_PM patient_6 NHEM pool
 #do
 #    unifiedgenotyper $k
 #done

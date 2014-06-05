@@ -17,7 +17,7 @@
 #
 #          Set number of resources
 #          1 core for 1 min
-#OAR -l /nodes=3/,walltime=03:00:00
+#OAR -l /nodes=3/,walltime=01:00:00
 #	   If the job is killed, send signal SIGUSR2(12) 20s before killing the job ;
 #          then, resubmit the job in an identical way.
 #          Else, the job is terminated normally.
