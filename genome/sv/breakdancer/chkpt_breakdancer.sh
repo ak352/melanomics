@@ -21,8 +21,6 @@
 #	   If the job is killed, send signal SIGUSR2(12) 20s before killing the job ;
 #          then, resubmit the job in an identical way.
 #          Else, the job is terminated normally.
-#OAR -O breakdancer.stdout
-#OAR -E breakdancer.stderr
 #OAR -n Breakdancer
 #OAR -t idempotent
 #OAR --checkpoint 900
@@ -66,8 +64,7 @@ echo $TASK
 # Checkpoint context file, use the scratch filesystem if available
 CONTEXT=$SCRATCH
 [ "`df -T $SCRATCH | grep -c lustre`" == "0" ] && CONTEXT=$WORK
-CONTEXT=$PWD
-CONTEXT="$CONTEXT/melanomics.genome.breakdancer.context"
+CONTEXT="$1"
 echo CONTEXT = $CONTEXT
 
 # Run the task with blcr libraries

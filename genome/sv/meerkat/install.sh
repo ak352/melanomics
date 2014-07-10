@@ -8,10 +8,13 @@ module load Primer3/2.3.0-goolf-1.4.10
 module load R/3.0.1-goolf-1.4.10-bare
 export PATH=/work/projects/melanomics/tools/blast/blast-2.2.24/bin:$PATH
 current=$PWD
-MEERKAT_DIR=/work/projects/melanomics/tools/meerkat
+#MEERKAT_DIR=/work/projects/melanomics/tools/meerkat
+MEERKAT_DIR=/work/projects/melanomics/tools/meerkat/blcr
 curr=$MEERKAT_DIR
 mybamtoolsfolder=$curr/Meerkat/src/mybamtools
 
+cd $curr
+echo PWD = $PWD
 #1. Build mybamtools
 mybamtools()
 {
@@ -31,8 +34,9 @@ bamreader()
 {
     
     cd Meerkat/src/
-    tar -xjvf bamreader.tbz
+    # tar -xjvf bamreader.tbz
     cd bamreader
+    make clean
     echo ${mybamtoolsfolder}
     sed -ie "s_BTROOT = .*_BTROOT = ${mybamtoolsfolder}_g" Makefile
     make

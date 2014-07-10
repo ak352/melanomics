@@ -17,12 +17,11 @@
 #
 #          Set number of resources
 #          1 core for 1 min
-#OAR -l /nodes=1/core=8,walltime=03:00:00
+#OAR -l nodes=1,walltime=120:00:00
 #	   If the job is killed, send signal SIGUSR2(12) 20s before killing the job ;
 #          then, resubmit the job in an identical way.
 #          Else, the job is terminated normally.
 
-#OAR -t bigsmp
 #OAR -t idempotent
 #OAR --checkpoint 900
 #OAR --signal 12
@@ -64,13 +63,15 @@ echo CONTEXT = $CONTEXT
 # Run the task with blcr libraries
 RUN="cr_run $TASK"
 # Terminate the process and save its context and all its child
-CHECKPOINT="cr_checkpoint -f $CONTEXT --kill -T" # + Process ID
+CHECKPOINT="cr_checkpoint --save-all -f $CONTEXT --kill -T" # + Process ID
+# CHECKPOINT="cr_checkpoint -f $CONTEXT --kill -T" # + Process ID
 # Restart the process(es)
 RESTART="cr_restart --no-restore-pid $CONTEXT"
 
 ##########################################
+# Run memory monitoring
+# 
 # Run the job
-#
 # DIRECTORY WHERE TO RUN
 if [ -f $CONTEXT ] ; then
     echo !!! Restart from checkpointed context !!!
@@ -94,7 +95,6 @@ wait $PID
 RET=$?
 
 echo !!! Execution ended, with exit value $RET !!!
-
 
 # Remove the context file
 rm -f $CONTEXT

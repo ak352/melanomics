@@ -1,4 +1,4 @@
-#!/bin/bash --login
+w#!/bin/bash --login
 PICARD=/work/projects/melanomics/tools/picard/picard-tools-1.95/
 #PICARD=/work/projects/melanomics/tools/picard_src/trunk/dist
 
