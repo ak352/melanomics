@@ -11,7 +11,7 @@ detection()
     sample=$1
     input="/work/projects/melanomics/analysis/genome/${sample}/bam/${sample}.bam"
     output=${OUTDIR}/${sample}.bf
-    oarsub -t bigmem -l walltime=120 -n ${sample}.bf "./run_detection.sh ${input} ${ref} ${output}"
+    oarsub -l nodes=1,walltime=120 -n ${sample}.bf "./run_detection.sh ${input} ${ref} ${output}"
     # ./run_detection.sh ${input} ${ref} ${output}
 }
 
@@ -22,7 +22,7 @@ blacklist()
     input="/scratch/users/sreinsbach/breakfast_genome/${sample}.bf.sv"
     output=${OUTDIR}/${sample}.bf.blacklist.txt
     #./run_blacklist.sh ${input} ${output}
-    oarsub -t bigmem -l walltime=120 -n ${sample}.bl "./run_blacklist.sh ${input} ${output}"
+    oarsub -l nodes=1,walltime=120 -n ${sample}.bl "./run_blacklist.sh ${input} ${output}"
 }
 
 
@@ -38,8 +38,8 @@ filtering()
     sample=$1
     input=${OUTDIR}/${sample}.bf.sv
     output=${OUTDIR}/${sample}.bf.filtered.sv
-    ./run_filtering.sh ${input} ${output} ${blacklist}
-    # oarsub -t bigmem -l walltime=120 -n ${sample}.filter "./run_filtering.sh ${input} ${output} ${blacklist}"
+    #./run_filtering.sh ${input} ${output} ${blacklist}
+     oarsub -l nodes=1,walltime=120 -n ${sample}.filter "./run_filtering.sh ${input} ${output} ${blacklist}"
 }
 
 
@@ -61,20 +61,20 @@ tabulate()
 }
 
 
-#for k in patient_4_PM patient_8_PM patient_5_PM patient_6_PM patient_7_PM patient_4_NS patient_8_NS NHEM patient_5_NS patient_6_NS patient_7_NS #patient_2_PM patient_2_NS 
+#for k in patient_4_PM patient_5_PM patient_6_PM patient_7_PM patient_4_NS NHEM patient_5_NS patient_6_NS patient_7_NS #patient_2_NS patient_2_PM patient_8_NS patient_8_PM 
 #    do 
 #      detection $k
 #    done
 
 
-# for k in patient_4_NS patient_8_NS NHEM patient_5_NS patient_6_NS patient_7_NS #patient_2_NS
-#     do
+ #for k in patient_4_NS patient_8_NS NHEM patient_5_NS patient_6_NS patient_7_NS patient_2_NS
+ #    do
 # 	blacklist $k
 #     done
 
 # create_blacklist
 
- for k in patient_4_PM #patient_4_PM patient_8_PM patient_5_PM patient_6_PM patient_7_PM 
+for k in patient_2_PM patient_4_PM patient_8_PM patient_5_PM patient_6_PM patient_7_PM 
      do
        filtering $k
      done
