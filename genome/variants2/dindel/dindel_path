@@ -1,0 +1,7 @@
+TOOLDIR=/work/projects/isbsequencing/tools/
+PATH=$TOOLDIR/dindel-1.01-src/dindel-1.01-python/:$PATH
+PATH=$TOOLDIR/dindel-1.01-src/:$PATH
+export PATH
+LD_LIBRARY_PATH=$TOOLDIR/boost/boost_1_45_0/boost_1_45_0/stage/lib/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH
+
