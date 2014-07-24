@@ -38,7 +38,7 @@ variant_recalibrate_htc()
     mkdir ${OUTDIR}    
     input=${OUTDIR}/${sample}.htc.vcf
     output=${OUTDIR}/${sample}.htc.vqsr.vcf
-    cores=1
+    cores=12
     #oarsub -l/nodes=1/core=${cores},walltime=120 -n ${sample}_htc_recal "./run_variant_recalibrate.sh ${input} ${output} ${dbsnp} ${ref} ${cores}"
     #oarsub -t bigmem -lcore=${cores},walltime=120 -n ${sample}_htc_recal "./run_variant_recalibrate.sh ${input} ${output} ${dbsnp} ${ref} ${cores}"
     oarsub -l/nodes=1/core=${cores},walltime=120 -n ${sample}_htc_recal "./run_variant_recalibrate.sh ${input} ${output} ${dbsnp} ${ref} ${cores}"

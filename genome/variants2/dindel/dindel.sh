@@ -50,10 +50,11 @@ stage2()
     output=$WINDOW_DIR/${bam##*/}
     output=${output%.bam}.realign_windows
 
-    makeWindows.py --inputVarFile $input \
-        --windowFilePrefix $output \
-    	--numWindowsPerFile 1000
-    ls -1 $output.* | grep -P "$output.[0-9]+.txt"| grep -oP "[0-9]+" > $OUT_DIR/input_stage3
+    # makeWindows.py --inputVarFile $input \
+    #     --windowFilePrefix $output \
+    # 	--numWindowsPerFile 1000
+    ls -1 $output.* | grep -oP '[0-9]+\.txt' | sed 's/\.txt//g' > $OUT_DIR/input_stage3
+    #ls -1 $output.* | grep -P "$output.[0-9]+.txt"| grep -oP "[0-9]+" > $OUT_DIR/input_stage3
     
     date
     echo Stage 2 done.
@@ -73,6 +74,13 @@ run_stage3()
 	else
 	ploidy="--doPooled"
     fi
+    echo "command:  dindel --analysis indels $ploidy \
+        --bamFile $bam \
+        --ref $ref \
+        --varFile $varFile \
+        --libFile $libFile \
+        --outputFile $outputFile"
+
     dindel --analysis indels $ploidy \
         --bamFile $bam \
         --ref $ref \
@@ -129,7 +137,7 @@ stage4()
 
 }
 
-stage1
+#stage1
 stage2
 stage3
 stage4

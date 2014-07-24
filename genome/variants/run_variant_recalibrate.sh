@@ -27,6 +27,7 @@ time java -Xmx64g -jar ${GATK}/GenomeAnalysisTK.jar \
 -an MQRankSum \
 -an ReadPosRankSum \
 -mode INDEL \
+-nt ${cores} \
 -recalFile ${input%.vcf}.recalibrate_INDEL.recal \
 -tranchesFile ${input%.vcf}.recalibrate_INDEL.tranches \
 -rscriptFile ${input%.vcf}.recalibrate_INDEL_plots.R
