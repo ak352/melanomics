@@ -7,6 +7,8 @@ output=$2
 
 echo "Run breakfast tabulate"
 date
-time breakfast tabulate fusions ${input} > ${output}
+CMD="breakfast tabulate fusions ${input} > ${output}"
+echo "${CMD}"
+eval "time ${CMD}"
 date
 echo "Finished breakfast tabulate"

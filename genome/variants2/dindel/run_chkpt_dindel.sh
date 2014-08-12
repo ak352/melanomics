@@ -17,6 +17,6 @@ do
     stdout=$OUTDIR/$k.stdout
     context=$OUTDIR/$k.context
     oarsub -O $stdout -E $stderr -n ${k#patient_} -S "./chkpt_dindel.sh $k 1 $context"
-done < patients
+done < patients2
 
 

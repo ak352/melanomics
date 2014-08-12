@@ -8,8 +8,8 @@ output=$3
 
 echo "Run breakfast detection"
 date
-CMD="breakfast detect -a20 -d10 ${input} ${ref} ${output}"
-#CMD="breakfast detect -a25 -d1000 ${input} ${ref} ${output}"
+#CMD="breakfast detect -a20 -d10 ${input} ${ref} ${output}"
+CMD="breakfast detect -d10 ${input} ${ref} ${output}"
 echo "${CMD}"
 eval "time ${CMD}"
 date

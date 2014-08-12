@@ -9,7 +9,8 @@ blacklist=$3
 
 echo "Run breakfast filtering"
 date
-time breakfast filter -r 1-3-0 -r 0-10-0 --blacklist=${blacklist} ${input} > ${output}
-#time breakfast filter -r 1-1-0 -r 0-2-0 --blacklist=${blacklist} ${input} > ${output}
+CMD="breakfast filter -r 1-3-0 -r 0-10-0 --blacklist=${blacklist} ${input} > ${output}"
+echo "${CMD}"
+eval "time ${CMD}"
 date
 echo "Finished breakfast filtering"

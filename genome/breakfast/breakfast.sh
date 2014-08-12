@@ -3,8 +3,8 @@
 OUTDIR=${SCRATCH}/breakfast_genome
 mkdir -pv ${OUTDIR}
 ref="/work/projects/melanomics/data/NCBI/Homo_sapiens/NCBI/build37.2/Sequence/WholeGenomeFasta/genome"
-blacklist=${OUTDIR}/blacklist.txt
-annofile="/work/projects/melanomics/tools/breakfast/data/ensembl_genes.bed"
+#annofile="/work/projects/melanomics/tools/breakfast/data/ensembl_genes.bed"
+annofile="/work/projects/melanomics/tools/breakfast/data/hg19_refGene.bed"
 
 detection()
 {
@@ -26,18 +26,13 @@ blacklist()
 }
 
 
-create_blacklist()
-{
-    oarsub -l/host=1/core=2,walltime=12 -n create_blacklist -O $OUTDIR/create_blacklist.stdout -E $OUTDIR/create_blacklist.stderr \
-	"./run_create_blacklist.sh $blacklist"
-}
-
-
 filtering()
 {
     sample=$1
+    sample_bl=$2
     input=${OUTDIR}/${sample}.bf.sv
     output=${OUTDIR}/${sample}.bf.filtered.sv
+    blacklist=${OUTDIR}/${sample_bl}.bf.blacklist.txt
     #./run_filtering.sh ${input} ${output} ${blacklist}
      oarsub -l nodes=1,walltime=120 -n ${sample}.filter "./run_filtering.sh ${input} ${output} ${blacklist}"
 }
@@ -47,8 +42,8 @@ annotation()
 {
     sample=$1
     input=${OUTDIR}/${sample}.bf.filtered.sv
-    output=${OUTDIR}/${sample}.bf.filtered.anno.sv
-    oarsub -t bigmem -l walltime=120 -n ${sample}.anno "./run_annotation.sh ${input} ${output} ${annofile}"
+    output=${OUTDIR}/${sample}.bf.filtered.anno.RefSeq.sv
+    oarsub -t bigmem -l walltime=120 -n ${sample}.anno.RefSeq "./run_annotation.sh ${input} ${output} ${annofile}"
 }
 
 
@@ -61,23 +56,22 @@ tabulate()
 }
 
 
-#for k in patient_4_PM patient_5_PM patient_6_PM patient_7_PM patient_4_NS NHEM patient_5_NS patient_6_NS patient_7_NS #patient_2_NS patient_2_PM patient_8_NS patient_8_PM 
+#for k in 4_PM 5_PM 6_PM 7_PM 4_NS 5_NS 6_NS 7_NS 2_NS 2_PM 8_NS 8_PM 
 #    do 
-#      detection $k
+#      detection patient_$k
 #    done
 
 
- #for k in patient_4_NS patient_8_NS NHEM patient_5_NS patient_6_NS patient_7_NS patient_2_NS
- #    do
-# 	blacklist $k
+#for k in 4 8 5 6 7 2
+#     do
+# 	blacklist patient_${k}_NS
 #     done
 
-# create_blacklist
 
-for k in patient_2_PM patient_4_PM patient_8_PM patient_5_PM patient_6_PM patient_7_PM 
+for k in 2 4 5 6 7 8
      do
-       filtering $k
-     done
+       filtering patient_${k}_PM patient_${k}_NS
+    done
 
 
 # for k in patient_2_PM patient_4_PM patient_8_PM patient_5_PM patient_6_PM patient_7_PM
