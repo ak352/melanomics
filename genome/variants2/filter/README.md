@@ -1,5 +1,6 @@
 # Variant Annotation for Quality Control
-0. This module takes a variant file in the Complete Genomics testvariants format and the corresponding VCF file annotated with coverage and annotates them with 
+1. This module takes a variant file in the Complete Genomics testvariants format and the corresponding VCF file annotated with coverage and annotates them with 
+
 - coverage
 - genotype quality
 - distance to nearest indel
@@ -11,13 +12,13 @@
 - microsatellites
 - self-chained regions
 
-1. To annotate the variants, the launcher script is script.sh
+2. To annotate the variants, the launcher script is script.sh
 
-2. At the end of script.sh, there are 
+3. At the end of script.sh, there are 
 - functions to prepare the annotation databases (run-once)
 - functions to annotate (run every time a variant file needs to be annotated)
 
-3. First comment out the run-once functions and run the script.sh - 
+4. First comment out the run-once functions and run the script.sh - 
 ```
 # Preparing files for annotation
 homopolymer_one                                                                                                                     
@@ -28,7 +29,7 @@ microsatellite_once
 scr_once                                                                                                                             
 ```
 
-4. Then comment them back in and comment out the annotation functions - 
+5. Then comment them back in and comment out the annotation functions - 
 
 ```
 homopolymer                                                                                                                          
@@ -41,7 +42,7 @@ distance_hp
 paste_all
 ```
 
-5. The status messages in standard output should show the location of the intermediate and output files generated.
+6. The status messages in standard output should show the location of the intermediate and output files generated.
 
 
 
