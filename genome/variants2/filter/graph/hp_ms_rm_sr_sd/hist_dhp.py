@@ -73,22 +73,29 @@ if __name__== "__main__":
                 continue
             if vartype == "indelsub" and line[fields["varType"]] not in ["ins", "del", "sub"]:
                 continue
+
+        """ Check if a variant was found in either normal or tumor """
         if "1" in line[fields[normal]] or "1" in line[fields[tumor]]:
             coverage_normal = float(line[fields[attribute]])
             coverage_tumor = float(line[fields[attribute]])
 
-            if line[fields[normal]]==line[fields[tumor]]:
+            if "1" in line[fields[normal]] and "1" in line[fields[tumor]]:
+                """ Changed from same genotype as tumor may contain copy number variations leading to different genotype """
                 concordant_normal.append(coverage_normal)
                 concordant_tumor.append(coverage_tumor)
-            elif ("1" in line[fields[normal]] and line[fields[tumor]]=="00") or \
-                    ("1" in line[fields[tumor]] and line[fields[normal]]=="00"):
+            elif "1" in line[fields[normal]] and line[fields[tumor]]=="00":
+                """ Changed from normal-only or tumor-only to normal-only as tumor-only can be somatic mutations """
                 discordant_normal.append(coverage_normal)
                 discordant_tumor.append(coverage_tumor)
+            elif "1" in line[fields[normal]] and line[fields[normal]]=="00":
+                somatic_normal.append(coverage_normal)
+                somatic_tumor.append(coverage_tumor)
             else:
                 partial_normal.append(coverage_normal)
                 partial_tumor.append(coverage_normal)
 
-    
+                
+    """ Filter using the max threshold """
     concordant_normal = [x for x in concordant_normal if x <max_threshold]
     discordant_normal = [x for x in discordant_normal if x <max_threshold]
     concordant_tumor = [x for x in concordant_tumor if x <max_threshold]

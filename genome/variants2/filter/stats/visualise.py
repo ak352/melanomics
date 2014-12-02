@@ -7,7 +7,7 @@ total_count, any_filter, counts = json.load(infile)
 
 #print total_count, any_filter, counts
 samples = sp.get_samples()
-vartypes=["variants", "snp", "ins", "del"]
+vartypes=["variants", "snp", "ins", "del", "sub"]
 filters = ["Homopolymer", "microsatellites", "repeat masker", "segmental duplication", "self-chained regions"]
 
 print "Sample\tFilter\tVariant type\tCount"
