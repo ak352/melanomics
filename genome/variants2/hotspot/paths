@@ -1,0 +1,3 @@
+PATH=/work/projects/melanomics/tools/bedtools/bedtools2/bin/:$PATH
+export PATH
+
