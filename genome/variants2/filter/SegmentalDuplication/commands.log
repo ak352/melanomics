@@ -1,0 +1,2 @@
+cat hg19_segdup | grep -v ^"#"|sort -k2,2 -k3,3n -k4,4n |bgzip > hg19_segdup.gz
+tabix -s2 -b3 -e4 hg19_segdup.gz 

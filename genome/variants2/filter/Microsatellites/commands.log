@@ -1,0 +1,7 @@
+#Earlier annotation command using cgatools
+#cgatools join --beta --input ../master.GS00533.GS00003432.SS6002862.tested.illumina microsatellites --match chromosome:chrom --overlap begin,end:chromStart,chromEnd --select A.*,B.chromStart,B.chromEnd,B.name -m compact-pct -a > master.GS00533.GS00003432.SS6002862.tested.illumina.microsatellites
+
+
+#Using tabix
+cat hg19_microsatellites | grep -v ^"#"|sort -k2,2 -k3,3n -k4,4n |bgzip > hg19_microsatellites.gz
+tabix -s2 -b3 -e4 hg19_microsatellites.gz

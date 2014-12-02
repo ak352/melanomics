@@ -34,7 +34,7 @@ bamreader()
 {
     
     cd Meerkat/src/
-    # tar -xjvf bamreader.tbz
+    tar -xjvf bamreader.tbz
     cd bamreader
     make clean
     echo ${mybamtoolsfolder}
@@ -74,7 +74,7 @@ date
 echo Installing Meerkat...
 echo [Entering $MEERKAT_DIR]
 cd $MEERKAT_DIR
-mybamtools
+#mybamtools
 bamreader
 dre
 sclus

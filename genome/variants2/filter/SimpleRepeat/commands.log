@@ -1,0 +1,2 @@
+cat simple_repeat | grep -v ^"#"|sort -k2,2 -k3,3n -k4,4n |bgzip > simple_repeat.gz
+tabix -s2 -b3 -e4 simple_repeat.gz

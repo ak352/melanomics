@@ -1,0 +1,17 @@
+
+##Convert test variants to VCF
+#Assuming the final annotated list is in sc.out
+cut -f1-10 ../SelfChainedRegions/sc.out >test.temp
+#Remove leading ">" from header to comply with cgatools
+(grep ^">" test.temp | cut -c2-; grep -v ^">" test.temp;) > test
+rm -rf test.temp
+perl ~/tools/cgatools-1.5.0.31-linux_binary-x86_64/perl/testvariants2VCF-v2/testvariants2VCF-v2.pl test ~/resources/refGenomes/hg19.crr > vcf.txt 2> runlog.txt
+
+#Convert filtered test variants to VCF
+
+
+
+
+
+#Convert list variants to test variants
+/home/clusterusers/akrishna/tools/cgatools-1.5.0.31-linux_binary-x86_64/bin/cgatools testvariants --beta --reference /mnt/projects/isbsequencing/resources/refGenomes/hg19.crr --input test --output test2 --variants /mnt/projects/isbsequencing/shsy5y/sequence/GS00533-DNA_A01/GS00533-DNA_A01_201_37-ASM/ASM/var-GS00533-DNA_A01_201_37-ASM.tsv.bz2

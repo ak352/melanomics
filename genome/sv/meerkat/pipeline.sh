@@ -100,7 +100,7 @@ mechanism()
 # load_hg18
 echo OAR_JOBID = $OAR_JOBID
 load_hg19
-preprocess
-replace
+#preprocess
+#replace
 meerkat
 mechanism

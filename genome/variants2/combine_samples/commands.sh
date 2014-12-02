@@ -1,7 +1,7 @@
 #!/bin/bash --login
 module load Java
-module load pipeline
-module load pysam
+#module load pysam
+source paths
 java=java
 sed=sed
 GATK=/work/projects/melanomics/tools/gatk/GenomeAnalysisTK-2.6-5-gba531bd/
@@ -24,7 +24,21 @@ merge()
 	vcf_files=$sample_files.vcf_files.in
 	awk '{print $2}' $sample_files > $vcf_files
 	output=$2
-	python pipeline.py -vc --ignore-source -g $GATK/GenomeAnalysisTK.jar -r $ref -d $dict --list-of-vcf ${vcf_files} -o $output
+	cmd="java -Xmx2g -jar $GATK/GenomeAnalysisTK.jar \
+	    -T CombineVariants"  
+
+	#Get the pats of VCF files
+	while read sample_line
+	do
+	    set $sample_line
+	    vcf=$2
+	    echo $vcf
+            cmd="$cmd --variant:VCF  $vcf"
+	done < $sample_files
+	cmd="$cmd -o $output -R $ref"
+
+	echo $cmd
+	eval $cmd
 	echo Output written to $output
     done < $parameters
 }
@@ -46,13 +60,14 @@ get_coverages()
 	do
 	    set $sample_line
 	    output=$2.coverage
+	    sample=$1
 	    bam=$3
 	    echo Intervals = $intervals 
 	    echo Output = $output
 	    echo bam = $bam
 	    echo "$BEDTOOLS/coverageBed -split -abam $bam -b $intervals > $output" 
-	    $BEDTOOLS/coverageBed -split -abam $bam -b $intervals > $output
-	    #oarsub -lcore=2,walltime=8 "$BEDTOOLS/coverageBed -split -abam $bam -b $intervals > $output"
+	    #$BEDTOOLS/coverageBed -split -abam $bam -b $intervals > $output
+	    oarsub -t bigmem -lcore=4,walltime=24 -n ${sample}.get_cov "$BEDTOOLS/coverageBed -split -abam $bam -b $intervals > $output"
 	done < $sample_file
     done < $parameters
 }
@@ -63,16 +78,20 @@ sort_coverages()
     while read param_line
     do
 	set $param_line
-	sample_files=$2
+	sample_file=$1
+	echo sample file = $sample_file
 	while read sample_line
 	do
 	    set $sample_line
-	    input=$2.coverage
+	    vcf=$2
+	    input=$vcf.coverage
 	    output=$input.sorted
+	    echo vcf = $vcf
+	    echo input = $input
 	    sed 's/^\([0-9]\t\)/0\1/g' $input \
 	    |sort -k1,1 -k2,3n| sed 's/^0//g' \
 	    > $output
-	done < $sample_files
+	done < $sample_file
     done < $parameters
 }
 
@@ -89,8 +108,10 @@ paste_coverages()
 	while read sample_line
 	do
 	    set $sample_line
-	    cut -f4 $2.coverage.sorted > $temp$k
-            cmd="$cmd $temp$k"
+	    sample=$1
+	    vcf=$2
+	    cut -f4 $vcf.coverage.sorted > $temp$sample
+            cmd="$cmd $temp$sample"
 	done < $sample_file
 	(grep ^"#" $input; paste <( grep -v ^"#" $input | sed 's/^\([0-9]\t\)/0\1/g'| sort -k1,1 -k2,3n| sed 's/^0//g'  )  $cmd;) > $output
     done < $parameters
@@ -103,10 +124,13 @@ set_dp()
     do
 	set $k
 	merged_vcf=$2.coverages
-	input=$merged_vcf
-	output=${merged_vcf%vcf}annotated.vcf
-	python set_dp.py $input > $output
+	input=$2
+	output=${input%vcf}coverage_annotated.vcf
+	python set_dp.py $merged_vcf > $output 2>$output.stderr
+	echo Output written to $output
+	echo Standard error output written to $output.stderr
     done < $parameters
+
 }
 
 

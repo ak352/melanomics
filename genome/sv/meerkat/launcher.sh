@@ -7,7 +7,7 @@
 # oarsub -E $stderr -O $stdout -n $name -S "./run_meerkat.sh $SCRATCH/meerkat/test.bam"
 
 
-for k in 4 #2 #4 5 6 7 8 #2
+for k in 4 #5 #2 5 #4 5 6 7 8 #2
 do
     for m in NS #PM #NS PM
     do

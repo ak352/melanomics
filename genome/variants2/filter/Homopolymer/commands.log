@@ -1,0 +1,4 @@
+#Sort and bgzip
+cat hg19_homopolymers | grep -v ^">"|sort -k1,1 -k2,2n -k3,3n |bgzip > hg19_homopolymers.gz
+
+tabix -0 -s1 -b2 -e3 hg19_homopolymers.gz

@@ -1,0 +1,6 @@
+
+grep -v ^">" hg19_homopolymers| awk -F"\t" '{print "hp\t"$1"\t"$2"\t"$3"\t"$4;}'  > hp_var_merged
+grep -v ^">" ../SelfChainedRegions/sc.out  >> hp_var_merged
+
+grep ^">" ../SelfChainedRegions/sc.out  > hp_var_merged.sorted
+sort -k2,2 -k3,3n -k4,4n hp_var_merged >> hp_var_merged.sorted
