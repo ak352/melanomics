@@ -110,7 +110,7 @@ if __name__== "__main__":
 
     data = [[x, y] for x,y in zip(covs, labels)]
     for i,point in enumerate(data):
-        [x, a] = histogram(point[0], bins=range(max_threshold), normed=True)
+        [x, a] = histogram(point[0], bins=range(max_threshold))
         savehist((x, a), point[1], "%s.%s%s" % (output, prefix, attribute))
 
     

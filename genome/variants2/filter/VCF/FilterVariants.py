@@ -17,7 +17,7 @@ file = open("../SelfChainedRegions/sc.out")
 out = open("filtered_testvariants", "w+")
 rejected = open("rejected", "w+")
 sample_names = ["GS00533-DNA_A01_201_37-ASM", "SS6002862"]
-coverage = [("coverage_GS00533-DNA_A01_201_37-ASM", 20.0, 100.0), ("coverage_SS6002862", 20.0, 70.0)]
+coverage = [("coverage_", 20.0, 100.0), ("coverage_SS6002862", 20.0, 70.0)]
 variant_scores = [("alleleVarScoreVAF_GS00533-DNA_A01_201_37-ASM", 60.0), ("Q(variant)_SS6002862", 100.0)]
 indel_distance_threshold = 5
 

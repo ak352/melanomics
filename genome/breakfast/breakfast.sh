@@ -1,6 +1,6 @@
 #!/bin/bash --login
 
-OUTDIR=${SCRATCH}/breakfast_genome
+OUTDIR="/work/projects/melanomics/analysis/genome/breakfast_genome/new"
 mkdir -pv ${OUTDIR}
 ref="/work/projects/melanomics/data/NCBI/Homo_sapiens/NCBI/build37.2/Sequence/WholeGenomeFasta/genome"
 #annofile="/work/projects/melanomics/tools/breakfast/data/ensembl_genes.bed"
