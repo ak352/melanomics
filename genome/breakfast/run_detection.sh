@@ -14,5 +14,3 @@ echo "${CMD}"
 eval "time ${CMD}"
 date
 echo "Finished breakfast detection"
-
-

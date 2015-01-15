@@ -56,10 +56,10 @@ tabulate()
 }
 
 
-#for k in 4_PM 5_PM 6_PM 7_PM 4_NS 5_NS 6_NS 7_NS 2_NS 2_PM 8_NS 8_PM 
-#    do 
-#      detection patient_$k
-#    done
+for k in 4_PM #5_PM 6_PM 7_PM 4_NS 5_NS 6_NS 7_NS 2_NS 2_PM 8_NS 8_PM 
+    do 
+      detection patient_$k
+    done
 
 
 #for k in 4 8 5 6 7 2
@@ -68,10 +68,10 @@ tabulate()
 #     done
 
 
-for k in 2 4 5 6 7 8
-     do
-       filtering patient_${k}_PM patient_${k}_NS
-    done
+#for k in 2 4 5 6 7 8
+#     do
+#       filtering patient_${k}_PM patient_${k}_NS
+#    done
 
 
 # for k in patient_2_PM patient_4_PM patient_8_PM patient_5_PM patient_6_PM patient_7_PM

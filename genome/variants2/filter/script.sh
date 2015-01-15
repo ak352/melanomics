@@ -20,7 +20,8 @@ ROOT_DIR=$PWD
 status "Root directory: $ROOT_DIR"
 LISTVARIANTS=/work/projects/melanomics/analysis/genome/variants2/all.dna.coverage_annotated.testvariants
 TABIX=/work/projects/melanomics/tools/tabix/tabix-0.2.6/tabix
-OUTPUT_DIR=/work/projects/melanomics/analysis/genome/variants2/filter
+# OUTPUT_DIR=/work/projects/melanomics/analysis/genome/variants2/filter
+OUTPUT_DIR=/work/projects/melanomics/analysis/genome/variants2/somatic/filter
 
 SIMPLE_REPEATS="http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/simpleRepeat.txt.gz"
 RMSK="http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/rmsk.txt.gz"
@@ -33,8 +34,9 @@ coverage_anno()
 {
     cd $ROOT_DIR/Coverage/
     input=../VariantScore/all.dna.coverage_annotated.testvariants
+    vcfgz=/work/projects/melanomics/analysis/genome/variants2/intermediate/all.dna.coverage_annotated.vcf.gz
     output=$OUTPUT_DIR/cov.out
-    python label_coverage.py ../VariantScore/all.dna.coverage_annotated.testvariants > $output
+    python label_coverage.py $input $vcfgz > $output
 }
 
 #2. Annotate with variant scores
@@ -42,6 +44,7 @@ quality_anno()
 {
     cd $ROOT_DIR/VariantScore/
     input=../VariantScore/all.dna.coverage_annotated.testvariants
+    vcfgz=/work/projects/melanomics/analysis/genome/variants2/intermediate/all.dna.coverage_annotated.vcf.gz
     output=$OUTPUT_DIR/vs.out
     python label_gq.py $input > $output
 }

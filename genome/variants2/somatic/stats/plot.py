@@ -6,7 +6,7 @@ for k in [2,4,5,6,7,8]:
     infiles.append("/work/projects/melanomics/analysis/genome/variants2/somatic/stats/patient_%s.depth.hist" % str(k))
 
 x = []
-xrang=101
+xrang=1001
 t = linspace(0,xrang,xrang)
 
 for infile in infiles:
@@ -21,5 +21,5 @@ for infile in infiles:
 xlabel("Read depth")
 ylabel("Number of mutations")
 legend()
-#show()
-savefig(sys.argv[1])
+show()
+#savefig(sys.argv[1])

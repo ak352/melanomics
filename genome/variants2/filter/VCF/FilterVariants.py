@@ -1,4 +1,7 @@
-#Creates a dictionary of fields pointing to column numbers, makes the code more readable                                                                              
+import sys
+import time
+
+#Creates a dictionary of fields pointing to column numbers, makes the code more readable
 def ParseFields(line):
     fields = {}
     var = line.rstrip("\n").lstrip("#").lstrip(">").split("\t")
@@ -6,101 +9,129 @@ def ParseFields(line):
         fields[var[x]] = x
     return fields
 
-#Strips any leading ">" or "#" and lagging "\n", a very common operation for master files                                                                             
+#Strips any leading ">" or "#" and lagging "\n", a very common operation for master files
 def StripLeadLag(line):
     var = line.rstrip("\n").lstrip("#").lstrip(">").split("\t")
     return var
 
-
-
-file = open("../SelfChainedRegions/sc.out")
-out = open("filtered_testvariants", "w+")
-rejected = open("rejected", "w+")
-sample_names = ["GS00533-DNA_A01_201_37-ASM", "SS6002862"]
-coverage = [("coverage_", 20.0, 100.0), ("coverage_SS6002862", 20.0, 70.0)]
-variant_scores = [("alleleVarScoreVAF_GS00533-DNA_A01_201_37-ASM", 60.0), ("Q(variant)_SS6002862", 100.0)]
-indel_distance_threshold = 5
-
-num_filtered = 0
-
-
-for line in file:
-    reasons = []
-
-    filter = False
-
-    var = StripLeadLag(line)
-    if line.startswith(">"):
-        fields = ParseFields(line)
-        out.write("\t".join(var[0:8+len(sample_names)]) + "\n")
-
-        rejected.write("\t".join(var[0:8+len(sample_names)]))
-        rejected.write("\t" + "reason\n")
-
-    else:
-        #Filter 1 - Uncertain calls
-        for x in sample_names:
-            if "N" in var[fields[x]]:
-                filter=True
-                #reasons.append(x+"="+var[fields[x]])
-                reasons.append(var[fields[x]])
-
-        #Filter 2 - Variant scores
-        for x in variant_scores:
-            if var[fields[x[0]]]!="":
-                if float(var[fields[x[0]]]) < float(x[1]):
-                    filter=True
-                    #reasons.append(x[0]+"="+var[fields[x[0]]])
-                    reasons.append(x[0])
-
-        #Filter 3 - Coverage or read-depth
-        for x in coverage:
-            if float(var[fields[x[0]]]) < float(x[1]) or float(var[fields[x[0]]]) > float(x[2]):
-                filter=True
-                #reasons.append(x[0]+"="+var[fields[x[0]]])
-                reasons.append(x[0])
+def revers(string):
+    string = string.split("_")
+    newstr = [string[-1]]
+    newstr.extend(string[:-1])
+    return "_".join(newstr)
     
-        #Filter 4 - Near an indel (filter if indel within 5 bases)
-        if var[fields["varType"]]=="snp":
-            assert var[fields["NearestIndelDistance"]]!="", line
-            if int(var[fields["NearestIndelDistance"]]) < indel_distance_threshold:
-                filter=True
-                #reasons.append("NearestIndelDistance="+var[fields["NearestIndelDistance"]])
-                reasons.append("NearestIndelDistance")
+
+if __name__ == "__main__":
+    # infile = "/work/projects/melanomics/analysis/genome/variants2/filter/hp_ms_rm_sr_sd/all.hp_ms_rm_sr_sd.out"
+    # outfile="/work/projects/melanomics/analysis/genome/variants2/filter/hp_ms_rm_sr_sd/all.hp_ms_rm_sr_sd.cov_qual.out"
+    # infile = "/work/projects/melanomics/analysis/genome/variants2/filter/all.out"
+    # outfile="/work/projects/melanomics/analysis/genome/variants2/filter/all.filter_annotation.out"
+    # filter_file = "/work/projects/melanomics/analysis/genome/variants2/filter/graphs/hp_ms_rm_sr_sd_absolute_germline_only/roc/filter_values_for_input"
+
+    infile = sys.argv[1]
+    outfile = sys.argv[2]
+    filter_file = sys.argv[3]
+
+    regional_filters = ["Homopolymer", "microsatellites", "repeat masker", "segmental duplication", "self-chained regions"]
+    # regional_filters = ["Homopolymer", "microsatellites", "segmental duplication"]
+    logfile=open(outfile+".log", "w")
+    logfile.write(time.strftime("[%d-%m-%Y, %H:%M:%S] Begin filtering...\n"))
+    out = open(outfile, "w+")
+
+    num_filtered = 0
+
+    # Extract the filter values
+    filters = {}
+    with open(filter_file) as f:
+        line = next(f)
+        var = ParseFields(line)
+        for line in f:
+            line = StripLeadLag(line)
+            field = line[var["fields"]]
+            thresh = line[var["min_thresh"]]
+            if "coverage" in field or "quality" in field:
+                filters[field] = float(thresh)
+                
+
+
+    # print filters
+    vartypes = ["variants", "snp", "ins", "del", "sub"]
+
+    with open(infile) as f:
+        line = next(f)
+        var = ParseFields(line)
+        out.write(line[:-1] + "\tfilter\treasons_for_filtering\n")
+    
+        num_passed = {}
+        num_filtered = {}
+        count = {}
+        for key in vartypes:
+            num_passed[key] = 0
+            num_filtered[key] = 0
+            count[key] = 0
+        total = 0
+
+        for line in f:
+            line = StripLeadLag(line)
+            reasons = []
+            is_filter = False
+            vartype = line[var["varType"]]
+
+            for filt in filters:
+                if "coverage" in filt:
+                    # print filt
+                    if float(line[var[filt]]) < float(filters[filt]) and float(line[var[filt]]) <= 200:
+                        is_filter = True
+                        reasons.append("%s=%s" % (filt, line[var[filt]]))
+
+                if "indelsub.quality" in filt:
+                    if vartype in ["ins", "del", "sub"]:
+                        thresh = float(filters[filt])
+                        filt = filt.replace("indelsub.", "")
+                        if float(line[var[filt]]) < thresh:
+                            is_filter = True
+                            reasons.append("%s=%s" % (filt, line[var[filt]]))
+
+                if "snp.quality" in filt:
+                    if vartype == "snp":
+                        thresh = float(filters[filt])
+                        filt = filt.replace("snp.", "")
+                        if float(line[var[filt]]) < thresh:
+                            is_filter = True
+                            reasons.append("%s=%s" % (filt, line[var[filt]]))
+                for filt in regional_filters:
+                    if line[var[filt]]:
+                        is_filter = True
+                        reasons.append("%s=%s" % (filt, line[var[filt]]))
+
+            if is_filter:
+                line.extend(["FAIL", ";".join(reasons)])
+                num_filtered[vartype] += 1
+                num_filtered["variants"]
+            else:
+                line.extend(["PASS", ""])
+                num_passed[vartype] += 1
+                num_passed["variants"] += 1
+            count[vartype] += 1
+            count["variants"] += 1
+            out.write("\t".join(line)+"\n")
+
+            total += 1
+            if total % 1000000 == 0:
+                logfile.write("%d variants processed..., pass rate = %4.2f (snp=%4.2f, ins=%4.2f, del=%4.2f, sub=%4.2f)\n" % (total, \
+                                                                                                                                     float(num_passed["variants"])/float(total), \
+                                                                                                                                     float(num_passed["snp"])/float(count["snp"]), \
+                                                                                                                                     float(num_passed["ins"])/float(count["ins"]), \
+                                                                                                                                     float(num_passed["del"])/float(count["del"]), \
+                                                                                                                                     float(num_passed["sub"])/float(count["sub"]), \
+                                                                                                                                     ))
+        logfile.write("Output written to %s\n" % outfile)
+        logfile.write("Filter statistics:\n")
+        logfile.write("Variant type\tTotal\tPassed\tFailed\tPass rate\n")
+        for var in vartypes:
+            logfile.write("%s\t%d\t%d\t%d\t%4.4f\n" % (var, count[var], num_passed[var], num_filtered[var], float(num_passed[var])/float(count[var]) ))
+
+    logfile.write(time.strftime("[%d-%m-%Y, %H:%M:%S] Filtering done.\n"))
+
 
         
-
-
-
-        #Other filters - simple repeat, microsatellites, segmental duplication, repeat masker, self-chained regions, homopolymer runs, distance to homopolymer runs
-        #other_filters = []
-        other_filters=["Homopolymer", "simple repeat", "segmental duplication", "repeat masker", "microsatellites", "self-chained regions"]
-        for f in other_filters:
-            if var[fields[f]]!="":
-                filter=True
-                reasons.append(f)
-
-        
-
-
-
-
-        if filter==False:
-            #out.write(line)
-            out.write("\t".join(var[0:8+len(sample_names)]))
-            #out.write("\t")
-            #out.write(";".join(reasons))
-            out.write("\n")
-            
-
-        rejected.write("\t".join(var[0:8+len(sample_names)]))
-        rejected.write("\t" + ";".join(reasons))
-        rejected.write("\n")
-
-        if filter==True:
-            num_filtered = num_filtered + 1
-
-
-
-#Summary
-print num_filtered, " variants filtered."

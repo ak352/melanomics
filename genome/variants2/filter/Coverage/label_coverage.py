@@ -26,10 +26,11 @@ def get_coverages(line):
     return coverages
     
 
-vcf="/work/projects/melanomics/analysis/genome/variants2/intermediate/all.dna.coverage_annotated.vcf.gz"
+infile=sys.argv[1]
+vcf=sys.argv[2]
 tbx = pysam.Tabixfile(vcf)
 
-for line in open(sys.argv[1]):
+for line in open(infile):
     if line.startswith(">"):
         var = ParseFields(line)
         oldline = Strip(line)
