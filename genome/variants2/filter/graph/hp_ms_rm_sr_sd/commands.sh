@@ -70,17 +70,22 @@ plot_all()
 roc()
 {
     DIR=/work/projects/melanomics/analysis/genome/variants2/filter/graphs/hp_ms_rm_sr_sd_absolute/
-    attrib=snp.quality
+    #attrib=snp.quality
+    attrib=coverage
 
-    #for p in 2 #4 5 6 7 8
-    #do
-    #echo patient_$p
-    #
-#	python roc.py -t $DIR/p$p.$attrib.concordant_normal.hist -t $DIR/p$p.$attrib.concordant_tumor.hist -f $DIR/p$p.$attrib.discordant_normal.hist -f $DIR/p$p.$attrib.discordant_tumor.hist -m 200 \#
-#	    -s patient_$p \
-#	    -a $attrib
-#    done
-	    python roc.py
+    # Each patient separately
+    # for p in 2 #4 5 6 7 8
+    # do
+    # 	echo patient_$p
+    # 	python roc.py -t $DIR/p$p.$attrib.concordant_normal.hist -t $DIR/p$p.$attrib.concordant_tumor.hist -f $DIR/p$p.$attrib.discordant_normal.hist -f $DIR/p$p.$attrib.discordant_tumor.hist -m 200 \
+    # 	    -s patient_$p \
+    # 	    -a $attrib
+    # done
+
+    #All patients
+    python roc.py -t $DIR/p$p.$attrib.concordant_normal.hist -t $DIR/p$p.$attrib.concordant_tumor.hist -f $DIR/p$p.$attrib.discordant_normal.hist -f $DIR/p$p.$attrib.discordant_tumor.hist -m 200 \
+	-a $attrib
+
 }
 
 # coverage
@@ -89,8 +94,8 @@ roc()
 # near_indel
 # near_hp
 
-plot_all
-#roc
+#plot_all
+roc
 
 #TODO: NHEM
 #TODO: Distance to homopolymer filter

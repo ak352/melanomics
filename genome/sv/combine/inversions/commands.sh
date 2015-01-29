@@ -87,6 +87,9 @@ annotate()
     out_status $output
 }
 
+params=$@
+
+
 while read svtype lumpy_sv delly list out_lumpy out_delly tested genes annotated affected_genes
 do
 
@@ -117,5 +120,5 @@ do
     echo $output
     awk -F"\t" '{if(($4=="1")&&($5=="1")) print;}' $input| cut -f6 | sed 's/;/\n/g' |sort -u |grep -vP "^$" > $output
     out_status $output
-done < params
+done < <( echo $params)
 

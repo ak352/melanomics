@@ -3,8 +3,11 @@ import sys
 # TODO: Count homozygous mutations as 2?
 logfile = open(sys.argv[3], "w+")
 
-col = 23
-col -= 1
+#col = 11
+#col = 23
+#col -= 1
+
+col = -1
 
 
 total_mutations = []
@@ -14,7 +17,11 @@ for line in open(sys.argv[2]):
     total_mutations.append(int(line[:-1]))
     background_mutation_prob.append(float(line[:-1])/float(genome_size))
 logfile.write("[INFO] background mutation rates = %s\n" % (",".join([str(x) for x in background_mutation_prob])))
-num_samples = 13
+
+num_samples = 6
+#num_samples = 1
+sys.stderr.write("Number of samples: %d\n" % num_samples)
+
 
 prev = None
 variants = []
@@ -33,7 +40,11 @@ for line in open(sys.argv[1]):
             else:
                 length = 100
             if len(variants) > 2:
-                probs = [(background_mutation_prob[k]**count[k])*((1-background_mutation_prob[k])**(length-count[k])) for k in range(len(count))]
+                try:
+                    probs = [(background_mutation_prob[k]**count[k])*((1-background_mutation_prob[k])**(length-count[k])) for k in range(len(count))]
+                except:
+                    sys.stderr.write("k = %d > either of %d or %d\n" % (k, len(background_mutation_prob), len(count)))
+                    sys.exit()
                 logfile.write("Number of mutations = %s\n" % str(len(variants)))
                 logfile.write("Length of hotspot = %s\n" % str(length))
                 logfile.write("Mutation probabilities: %s\n" % ",".join([str(x) for x in probs]))

@@ -65,7 +65,7 @@ overlap()
 
 }
 
-#Usgae: combine the separate test variants output
+#Usage: combine the separate test variants output
 combine()
 {
     #one=/work/projects/isbsequencing/shsy5y/analysis/sv/merged/deletions.list.meerkat.3

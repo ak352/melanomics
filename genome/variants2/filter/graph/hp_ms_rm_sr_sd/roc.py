@@ -174,9 +174,12 @@ if __name__ == "__main__":
                 plot_roc_mcc(option, sample, truth_files, false_files, win_dimen, index, last_row, max_x[j], true_positive_threshs[j])
                 index += 3
             
-        savefig('%s/%s.pdf' % (out_dir, attrib), bbox_inches='tight')
-        savefig('%s/%s.png' % (out_dir, attrib), bbox_inches='tight')
-        savefig('%s/%s.svg' % (out_dir, attrib), bbox_inches='tight')
+        filetypes = ['pdf', 'png', 'svg']
+        for filetype in filetypes:
+            outfile = '%s/%s.1.%s' % (out_dir, attrib, filetype)
+            sys.stderr.write("Graph generated at %s\n" % outfile)
+            savefig(outfile, bbox_inches='tight')
+
 
     #show()
 
