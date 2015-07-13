@@ -1,6 +1,6 @@
 import sys
 import time
-
+ 
 #Creates a dictionary of fields pointing to column numbers, makes the code more readable
 def ParseFields(line):
     fields = {}

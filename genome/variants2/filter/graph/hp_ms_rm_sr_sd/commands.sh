@@ -84,7 +84,11 @@ roc()
 
     #All patients
     python roc.py -t $DIR/p$p.$attrib.concordant_normal.hist -t $DIR/p$p.$attrib.concordant_tumor.hist -f $DIR/p$p.$attrib.discordant_normal.hist -f $DIR/p$p.$attrib.discordant_tumor.hist -m 200 \
-	-a $attrib
+	-a $attrib -s patient_4
+
+    #All patients
+    #python roc.py -t $DIR/p$p.$attrib.concordant_normal.hist -t $DIR/p$p.$attrib.concordant_tumor.hist -f $DIR/p$p.$attrib.discordant_normal.hist -f $DIR/p$p.$attrib.discordant_tumor.hist -m 200 \
+	#-a $attrib
 
 }
 

@@ -4,7 +4,7 @@ from pylab import *
 def lumpy2test(sample):
     infile="/work/projects/melanomics/analysis/genome/lumpy_genome/trim/%s.tumor_v_normal.pesr.bedpe" % sample
     annotations = [("INTERCHROM", "TRA")]
-    logfile="/work/projects/melanomics/analysis/genome/lumpy_genome/trim/%s.testvariants.log" % sample
+    logfile="/work/projects/melanomics/analysis/genome/lumpy_genome/trim/%s.tra.testvariants.log" % sample
     log = open(logfile, "w")
 
     count = {}

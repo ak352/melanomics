@@ -32,6 +32,7 @@ SEGDUP="http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/genomicSuperDups
 #1. Annotate with coverages
 coverage_anno()
 {
+    sample=$1
     cd $ROOT_DIR/Coverage/
     input=../VariantScore/all.dna.coverage_annotated.testvariants
     vcfgz=/work/projects/melanomics/analysis/genome/variants2/intermediate/all.dna.coverage_annotated.vcf.gz

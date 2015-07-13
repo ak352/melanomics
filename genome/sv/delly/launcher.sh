@@ -10,5 +10,7 @@ do
     stderr=$OUTDIR/$sample.$sv.stderr
     mkdir -v $OUTDIR
     #./commands.sh $bam1 $bam2 $OUTDIR
-    oarsub -lcore=2,walltime=120 -n $sample$sv -O $stdout -E $stderr -S "./run_delly.sh $bam1 $bam2 $OUTDIR $sv"
+    #oarsub -lcore=2,walltime=120 -n $sample$sv -O $stdout -E $stderr -S "./run_delly.sh $bam1 $bam2 $OUTDIR $sv"
+    oarsub -lcore=2,walltime=24 -n $sample$sv -O $stdout -E $stderr -S "./run_delly.sh $bam1 $bam2 $OUTDIR $sv"
+    break
 done < input

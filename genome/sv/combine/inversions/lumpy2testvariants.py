@@ -4,13 +4,13 @@ import sys
 def lumpy2test(sample):
     infile="/work/projects/melanomics/analysis/genome/lumpy_genome/trim/%s.tumor_v_normal.pesr.bedpe" % sample
     annotations = [("DELETION", "DEL"), ("DUPLICATION", "DUP"), ("INTERCHROM", "TRA"), ("INVERSION", "INV")]
-    logfile="/work/projects/melanomics/analysis/genome/lumpy_genome/trim/%s.testvariants.log" % sample
+    logfile="/work/projects/melanomics/analysis/genome/lumpy_genome/trim/%s.deldupinv.testvariants.log" % sample
     log = open(logfile, "w")
 
     count = {}
     somatic = {}
     for anno in annotations:
-        out="/work/projects/melanomics/analysis/genome/lumpy_genome/trim/%s.%s.testvariants" % (sample, anno[1])
+        out="/work/projects/melanomics/analysis/genome/lumpy_genome/trim/%s.%s.testvariants.1" % (sample, anno[1])
         outfile=open(out, "w")
         outfile.write(">chrom\tbegin\tend\n")
 
@@ -39,7 +39,7 @@ def lumpy2test(sample):
         log.write("%s\t%s\t%d\t%d\n" % (sample, anno[0], somatic[anno], count[anno]))
 
 def plotter(sample, svtypes):
-    logfile="/work/projects/melanomics/analysis/genome/lumpy_genome/trim/%s.testvariants.log" % sample
+    logfile="/work/projects/melanomics/analysis/genome/lumpy_genome/trim/%s.deldupinv.testvariants.log" % sample
     with open(logfile) as f:
         next(f)
         for line in f:

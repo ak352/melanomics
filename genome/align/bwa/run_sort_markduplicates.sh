@@ -19,7 +19,7 @@ markdup()
 	OUTPUT=$2 \
 	TMP_DIR=$SCRATCH/tmp/ \
 	METRICS_FILE=${1%.bam}.sorted.metrics.txt \
-	REMOVE_DUPLICATES=TRUE \
+REMOVE_DUPLICATES=TRUE \:
 	MAX_RECORDS_IN_RAM=80000000
 
     java -jar $PICARD/BuildBamIndex.jar \
