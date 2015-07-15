@@ -4,7 +4,6 @@
 Edit the script below to set the MutSigCV output file path.
 Edit the threshold for p-values. Higher p-value means more genes will be included. The p-value should be the same in steps 1,2,3,4,5
 In practice, setting a p-value higher than 0.15 leads to crashing during the delta selection step, perhaps as there are too many genes.
-
 ```
 ./run_generate_heat.sh
 ```
