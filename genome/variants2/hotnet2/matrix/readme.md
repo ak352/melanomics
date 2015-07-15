@@ -7,8 +7,8 @@ In practice, setting a p-value higher than 0.15 leads to crashing during the del
 ```apache
 ./run_generate_heat.sh
 ```
-
 The default output directories from here onwards are on $SCRATCH/hotnet.
+
 2. Edit the number of permutations for delta selection (set to 100 for now)
 Edit the threshold for p-values. The p-value should be the same in steps 1,2,3,4,5
 ```apache
