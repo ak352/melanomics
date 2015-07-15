@@ -79,7 +79,7 @@ if __name__ == "__main__":
     samples = [2,4,6,7,8]
     #samples = [8]
     #infiles = ["/work/projects/melanomics/analysis/genome/abscnseq/P%d.cnv.adj.called.wheader.dgv.genes" % s for s in samples]
-    infiles = ["/work/projects/melanomics/analysis/genome/abscnseq/vs2/P%d.vs2.wheader.dgv.genes" % s for s in samples]
+    #infiles = ["/work/projects/melanomics/analysis/genome/abscnseq/vs2/P%d.vs2.wheader.dgv.genes" % s for s in samples]
     for infile in infiles:
         write_affected_genes(infile)
         

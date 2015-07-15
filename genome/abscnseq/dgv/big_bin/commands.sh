@@ -16,9 +16,6 @@ out_status()
 }
 
 
-INDIR=/work/projects/melanomics/analysis/genome/cnvnator/binSize100/ 
-#input=$INDIR/patient_2.cnv.list.NS.PM.tested
-
 DGV_DIR=/work/projects/melanomics/data/dgv/
 dgv=$DGV_DIR/GRCh37_hg19_variants_2014-10-16.txt
 
@@ -69,8 +66,8 @@ annotate()
 while read line
 do
     echo "Input: $line"
-    prepare_cnv $line
-    get_dgv 
+    #prepare_cnv $line
+    #get_dgv 
     combine $line
     
 done < inputs

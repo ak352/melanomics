@@ -1,6 +1,8 @@
 
 
-OUTDIR=/work/projects/melanomics/analysis/genome/abscnseq/vs2
+#OUTDIR=/work/projects/melanomics/analysis/genome/abscnseq/vs2
+OUTDIR=/work/projects/melanomics/analysis/genome/abscnseq/vs2_min1000/
+
 mkdir -v $OUTDIR
 
 echo Sorting by genomic location...
@@ -15,7 +17,7 @@ do
 	  | sort -k1,1 -k2,3n \
 	  | sed 's/^0//g'; ) > $output"
     echo $cmd
-    #eval $cmd
+    eval $cmd
     head $output
 done
 
