@@ -29,8 +29,7 @@
    scr_once                                                                                                                           
    ```
 
-5. Then comment them back in and comment out the annotation functions - 
-
+5. Then comment them back in and comment out the annotation functions -
    ```
    homopolymer                                                                                                                        
    simple_repeat                                                                                                                      
