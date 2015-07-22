@@ -1,52 +1,23 @@
 import sys
-import re
+from collections import Counter
 
-def indel2GT(g1, g2, ref, alt):
-    zygosities = [[0,0],[0,0]]
-    genotypes = [g1,g2]
-    for k in range(2):
-        if genotypes[k]=="hom":
-            zygosities[k] = [1,1]
-        elif genotypes[k]=="het":
-            zygosities[k] = [0,1]
-    return ["/".join([str(k) for k in sorted(zygosity)]) for zygosity in  zygosities]
+def indel2GT(sgt):
+    assert sgt in ['hom', 'het'], sgt
+    if sgt == 'hom':
+        return '1/1'
+    elif sgt == 'het':
+        return '0/1'
+
+def report(line, log):
+    sys.stderr.write(line)
+    log.write(line)
+
+def fail_filter(normal, tumor):
+    if int(normal['DP']) < 8 or int(tumor['DP']) < 14:
+        return True
+    return False
+
     
-
-
-def genotype2GT(g1, g2, ref, alt):
-    assert len(g1)==len(g2)
-    assert len(g1)==2
-    assert g1[0] == g1[1]
-    alt = alt.split(",")
-    # index = 0
-    # indices = {}
-    # zygosity = []
-    # for k in range(2):
-    #     if g1[k] == g2[k]:
-    #         zygosity.append(0)
-    #     else:
-    #         if g2[k] not in indices:
-    #             index += 1
-    #             indices[g2[k]] = index
-    #         zygosity.append(indices[g2[k]])
-    zygosities = [[0,0],[0,0]]
-    genotypes = [g1,g2]
-    for k in range(2):
-        for n in range(2):
-            if genotypes[k][n]==ref:
-                zygosities[k][n] = 0
-            else:
-                for m in range(len(alt)):
-                    #print genotypes[k][n], alt[m], genotypes[k][n] == alt[m]
-                    if genotypes[k][n] == alt[m]:
-                        zygosities[k][n] = m+1
-
-        
-    # for zygosity in zygosities:
-    #     print "/".join([str(k) for k in sorted(zygosity)])
-    return ["/".join([str(k) for k in sorted(zygosity)]) for zygosity in  zygosities]
-
-
 if __name__=="__main__":
     inputs = open("input", "r")
     num_input = int(inputs.readline()[:-1])
@@ -54,16 +25,22 @@ if __name__=="__main__":
         infile=inputs.readline()[:-1]
         outfile_name = inputs.readline()[:-1]
         variant_type = inputs.readline()[:-1]
-        if variant_type == "snp":
-            sys.stderr.write("[INFO] Variant type = snp\n")
-        elif variant_type == "indel":
-            sys.stderr.write("[INFO] Variant type = indel\n")
-        else:
-            sys.stderr.write("[WARNING] Variant type must be snp or indel\n") 
-            continue
+        sample_name = inputs.readline()[:-1]
         outfile = open(outfile_name, "w+")
-        sys.stderr.write("[INFO] Input: %s\n" % (infile))
-        sys.stderr.write("[INFO] Output: %s\n" % (outfile_name))
+        logfile = outfile_name + ".log"
+        log = open(logfile, 'w')
+
+        if variant_type == "snp":
+            report("[INFO] Variant type = snp\n", log)
+        elif variant_type == "indel":
+            report("[INFO] Variant type = indel\n", log)
+        else:
+            report("[WARNING] Variant type must be snp or indel\n", log) 
+            continue
+
+        report("[INFO] Input: %s\n" % (infile), log)
+        report("[INFO] Output: %s\n" % (outfile_name), log)
+        report("[INFO] Log: %s\n" % (logfile), log)
 
         f = open(infile)
         line = next(f)
@@ -71,25 +48,43 @@ if __name__=="__main__":
             outfile.write(line)
             line = next(f)
         outfile.write('##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">\n')
-        outfile.write(line)    
+        outfile.write('##FORMAT=<ID=QSI,Number=1,Type=Integer,Description="Quality score for any somatic variant, ie. for the ALT haplotype to be present at a significantly different frequency in the tumor and normal">\n')
+        header = line
+        header = header.replace('NORMAL\t', '')
+        header = header.replace('TUMOR', sample_name)
+        outfile.write(header)
+        indels = Counter()
         for line in f:
             line = line[:-1].split("\t")
             [ref, alt] = line[3:5]
             info = line[7].split(";")
             info = dict([inf.split('=') for inf in info if'=' in inf ])
-            sgt = info['SGT']
-            if variant_type == "snp":
-                zygosities = genotype2GT(sgt[0], sgt[1], ref, alt)
-            elif variant_type == "indel":
-                try:
-                    zygosities = indel2GT(sgt[0], sgt[1], ref, alt)
-                except IndexError:
-                    print line[7], sgt
-            line[8] = "GT:"+ line[8]
-            line[9] = zygosities[0] +":"+ line[9]
-            line[10] = zygosities[1] +":"+ line[10]
+            qsi = info['QSI']
+            sgt = info['SGT'].split('->')[1]
+            zygosity = indel2GT(sgt)
+            line[8] = "GT:QSI:"+ line[8]
+            line[9] = zygosity +":" + qsi + ":" + line[9]
+            line[10] = zygosity +":" + qsi + ":" + line[10]
+            normal = dict(zip(line[8].split(':'),line[9].split(':')))
+            tumor = dict(zip(line[8].split(':'),line[10].split(':')))
+            indels['all'] += 1
+
+            
+            if fail_filter(normal, tumor):
+                indels['fail'] += 1
+                continue
+            else:
+                indels['pass'] += 1
+            
+
+            """ Remove normal """
+            line[9:] = line[10:]
             outfile.write("\t".join(line)+"\n")
 
 
+        report('coverage_filter\tnum_indels\tpercent_indels\n', log)
+        for k in sorted(indels.keys()):
+            report('%s\t%d\t%2.2f%%\n' % (k, indels[k], indels[k]*100./indels['all']), log)
+    
 
 
