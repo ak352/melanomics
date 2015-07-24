@@ -67,8 +67,8 @@ annotate()
 while read line
 do
     echo "Input: $line"
-    # prepare_cnv $line
-    #get_dgv 
+    prepare_cnv $line
+    get_dgv 
     combine $line
     
 done < inputs
