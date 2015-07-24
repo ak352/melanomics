@@ -44,13 +44,13 @@ runname=iref
 infmat_name=PPR
 infmat_index_file=/work/projects/melanomics/tools/hotnet/hotnet2/influence_matrix_downloaded/iref/iref_index_genes
 # heat_file=/work/projects/melanomics/analysis/genome/variants2/hotnet/mutsig.out
-# threshold=0.1
-threshold=0.15
+threshold=0.1
+#threshold=0.15
 heat_file=/work/projects/melanomics/analysis/genome/variants2/hotnet/mutsig.$threshold.out
 mut_heat_file=/work/projects/melanomics/analysis/genome/variants2/hotnet/mutation.out
 
-# num_perm=100
-num_perm=10
+num_perm=100
+#num_perm=10
 cores=-1 #All available cores used when cores = -1
 permuted_networks_path=/scratch/users/akrishna/hotnet2/iref/matrix/iref_matrix.##NUM##_ppr_0.6.mat 	
 OUTDIR=/scratch/users/akrishna/hotnet2/iref/delta
