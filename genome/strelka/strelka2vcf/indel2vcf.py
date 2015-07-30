@@ -1,5 +1,6 @@
 import sys
 from collections import Counter
+import json
 
 def indel2GT(sgt):
     assert sgt in ['hom', 'het'], sgt
@@ -12,14 +13,17 @@ def report(line, log):
     sys.stderr.write(line)
     log.write(line)
 
-def fail_filter(normal, tumor):
-    if int(normal['DP']) < 8 or int(tumor['DP']) < 14:
+def fail_filter(normal, tumor, thresholds):
+    if int(normal['DP']) < thresholds['normal']['lower'] or int(tumor['DP']) < thresholds['tumor']['lower']:
+        return True
+    if int(normal['DP']) > thresholds['normal']['upper'] or int(tumor['DP']) > thresholds['tumor']['upper']:
         return True
     return False
 
     
 if __name__=="__main__":
     inputs = open("input", "r")
+    thresholds = json.load(open('filter.json'))
     num_input = int(inputs.readline()[:-1])
     for k in range(num_input):
         infile=inputs.readline()[:-1]
@@ -42,6 +46,10 @@ if __name__=="__main__":
         report("[INFO] Output: %s\n" % (outfile_name), log)
         report("[INFO] Log: %s\n" % (logfile), log)
 
+        report("Using filter thresholds:\n", log)
+        report("%s\n" % json.dumps(thresholds, indent=4), log)
+
+        
         f = open(infile)
         line = next(f)
         while line.startswith("##"):
@@ -70,7 +78,7 @@ if __name__=="__main__":
             indels['all'] += 1
 
             
-            if fail_filter(normal, tumor):
+            if fail_filter(normal, tumor, thresholds):
                 indels['fail'] += 1
                 continue
             else:
