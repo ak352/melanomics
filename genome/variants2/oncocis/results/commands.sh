@@ -7,8 +7,8 @@ mkdir -v $OUTDIR
 OUTDIR_soma=$OUTDIR/filtered
 mkdir -v $OUTDIR_soma
 
-OUTDIR_germ=$OUTDIR/filtered
-mkdir -v $OUTDIR_germ
+#OUTDIR_germ=$OUTDIR/filtered
+#mkdir -v $OUTDIR_germ
 
 oncocis_germ_res()
 {
@@ -37,7 +37,7 @@ oncocis_soma_res_m()
     sample=$1
     out_all=$OUTDIR_soma/$sample.oncocis.soma.rare.filt.all.txt
     temp=$OUTDIR_soma/tmp
-    header=$OUTDIR/header
+    header=$OUTDIR_soma/header
     rm $temp
     rm $header
 
@@ -60,9 +60,9 @@ oncocis_soma_res_m()
 }
 
 
-for i in 4 #6 7 2 8
+for i in 2 #6 7 4 8
     do
 	#oncocis_germ_res patient_${i}
-	oncocis_soma_res patient_${i}
-	#oncocis_soma_res_m patient_${i}
+	#oncocis_soma_res patient_${i}
+	oncocis_soma_res_m patient_${i}
     done
