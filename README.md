@@ -8,7 +8,7 @@
 
 #### Key subfolders
 1. [CNV annotation](genome/abscnseq/dgv)
-2. [Hotnet2](genome/variants2/hotnet2/matrix)
+2. HotNet2 - [using MutSig scores](genome/variants2/hotnet2/matrix) and [mutations] (genome/variants2/hotnet2/matrix/mutation/)
 3. [Hotspot analysis](genome/variants2/hotspot/)
 4. [SNV density and hom-het ratio for Circos/POMO](genome/variants2/density/)
 
