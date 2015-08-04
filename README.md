@@ -11,6 +11,7 @@
 2. HotNet2 - [using MutSig scores](genome/variants2/hotnet2/matrix) and [mutations] (genome/variants2/hotnet2/matrix/mutation/)
 3. [Hotspot analysis](genome/variants2/hotspot/)
 4. [SNV density and hom-het ratio for Circos/POMO](genome/variants2/density/)
+5. [DNA/RNA SNV comparison](transcriptome/compare_genome)
 
 ### Not in this git
 **Data** (external databases), **Analysis** (output files), **Tools** (3rd party tools)
