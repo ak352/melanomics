@@ -6,7 +6,7 @@
  * *genome* - contains the scripts for the genome sequence workflow
  * *transcriptome* - contains the scripts for the transcriptome sequence workflow
 
-#### Key subfolders
+#### Currently active sub-tasks
 1. [CNV annotation](genome/abscnseq/dgv)
 2. HotNet2 - [using MutSig scores](genome/variants2/hotnet2/matrix) and [mutations] (genome/variants2/hotnet2/matrix/mutation/)
 3. [Hotspot analysis](genome/variants2/hotspot/)
