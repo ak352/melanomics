@@ -1,6 +1,6 @@
 ### Transcriptome Sequence Pipeline
 
- * *bam* - indel calling using Dindel
+ * *bam* - SNV calling using FaSD, indel calling using Dindel
  * *breakfast* - fusion gene calling
  * *comrad* 
  * *deFuse* - fusion gene calling
