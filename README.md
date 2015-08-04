@@ -6,6 +6,10 @@
  * *genome* - contains the scripts for the genome sequence workflow
  * *transcriptome* - contains the scripts for the transcriptome sequence workflow
 
+#### Key subfolders
+[hotnet2](genome/variants2/hotnet2)
+
+
 ### Not on this git
 
 #### Data
