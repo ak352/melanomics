@@ -1,5 +1,7 @@
 ### Workflow for SNVs/indels (somatic and germline)
-====================================================    
+=======================================================
+
+
 * *active_driver* - to analyse phosphroylated-SNVs
 * *annotation* - gene annotation and other annotations using ANNOVAR
 * *combine_indels* - to combine indels (VCF) from different callers
