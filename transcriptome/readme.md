@@ -2,7 +2,8 @@
 
  * *bam* - SNV calling using FaSD, indel calling using Dindel
  * *breakfast* - fusion gene calling
- * *comrad* 
+ * *comrad*
+ * *compare_genome* - compares the SNVs/indels between DNA and RNA
  * *deFuse* - fusion gene calling
  * *fasd_pipeline.sh* - fasd pipeline [deprecated, replace with complete version]
  * *fastq* - decompress fastq files
