@@ -26,10 +26,10 @@ position()
 {
     position=6:711485-711686
     makeBAMPosition=/work/projects/melanomics/scripts/genome/extractBAM/makeBAMfilePosition.sh
-    sample=patient_2_PM
+    sample=patient_4_NS
     type=genome
-    bamfile=/work/projects/melanomics/analysis/genome/patient_2/PM/bam/patient_2_PM.bam
-    OUTDIR=/work/projects/melanomics/analysis/genome/variants2/oncocis/germline/results/bam
+    bamfile=/work/projects/melanomics/analysis/genome/patient_4/NS/bam/patient_4_NS.bam
+    OUTDIR=/work/projects/melanomics/analysis/genome/variants2/oncocis/germline/results/bam2
     mkdir -v $OUTDIR
     cmd="$makeBAMPosition $position $sample $type $bamfile $OUTDIR"
     echo $cmd; eval $cmd
