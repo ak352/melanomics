@@ -1,4 +1,4 @@
-Workflow for SNVs/indels (somatic and germline)
+Workflow for SNVs/indels
 =======================================================
 
 
