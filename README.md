@@ -7,8 +7,10 @@
  * *transcriptome* - contains the scripts for the transcriptome sequence workflow
 
 #### Key subfolders
-[hotnet2](genome/variants2/hotnet2)
-
+[CNV annotation] (genome/abscnseq/dgv)
+[Hotnet2](genome/variants2/hotnet2/matrix)
+[Hotspot analysis](genome/variants2/hotspot/)
+[SNV density and hom-het ratio for Circos/POMO] (genome/variants2/density/)
 
 ### Not on this git
 
