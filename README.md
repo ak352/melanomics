@@ -1,5 +1,5 @@
-melanomics
-==========
+###melanomics
+
 
  * *akrishna_bashrc* - contains the .bashrc and .bash_profile for user akrishna
  * *bam* - contains scripts for creating BAM files for regions inside genes
