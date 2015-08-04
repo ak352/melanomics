@@ -12,6 +12,6 @@
 3. [Hotspot analysis](genome/variants2/hotspot/)
 4. [SNV density and hom-het ratio for Circos/POMO](genome/variants2/density/)
 
-### Not on this git
-**Data*** (external databases), **Analysis** (output files), **Tools** (3rd party tools)
+### Not in this git
+**Data** (external databases), **Analysis** (output files), **Tools** (3rd party tools)
 See [wiki](https://github.com/ak352/melanomics/wiki) for further details.
