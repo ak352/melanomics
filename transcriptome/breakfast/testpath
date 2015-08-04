@@ -1,0 +1,9 @@
+#!/bin/bash --login
+
+TOOLS=/work/projects/melanomics/tools
+PATH=$TOOLS/breakfast/test_pypette/bin/:$PATH
+PATH=$TOOLS/breakfast/pypy-2.2.1-linux_x86_64-portable/bin/:$PATH
+PATH=$TOOLS/bowtie/bowtie-1.0.0/:$PATH
+PATH=$TOOLS/samtools/samtools:$PATH
+export PATH
+
