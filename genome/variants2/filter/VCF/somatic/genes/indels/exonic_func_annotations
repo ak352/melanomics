@@ -1,0 +1,11 @@
+frameshift insertion
+frameshift deletion
+frameshift block substitution
+stopgain
+stoploss
+nonframeshift insertion
+nonframeshift deletion
+nonframeshift block substitution
+nonsynonymous SNV
+synonymous SNV
+unknown

@@ -4,7 +4,7 @@
 # Filters somatic mutations for mutations rare in the population
 rare()
 {
-    for k in 2 4 5 7 8
+    for k in 6 #2 4  7 8
     do
 	patient=patient_$k
 	INDIR=/work/projects/melanomics/analysis/genome/variants2/filter/$patient/
@@ -16,7 +16,7 @@ rare()
 
 aachanging()
 {
-    for k in 2 4 5 7 8
+    for k in 2 4 6 7 8
     do
 	patient=patient_$k
 	INDIR=/work/projects/melanomics/analysis/genome/variants2/filter/$patient/
@@ -26,7 +26,7 @@ aachanging()
 	#cut -f86-87 $input | sort -u
 	#cut -f 1-13,15,17,19,22-26,47-75 $input | head -n1 | sed 's/\t/\n/g' #> $output1
 	(head -n1 $input; sed '1d' $input \
-	    | awk -F"\t" '(($22=="exonic" && $25!="synonymous SNV")|| $22=="splicing" || $22=="exonic;splicing")';) \
+	    | awk -F"\t" '(($32=="exonic" && $35!="synonymous SNV")|| $32=="splicing" || $35=="exonic;splicing")';) \
 	    > $output
 	wc -l $input
 	wc -l $output
@@ -39,7 +39,7 @@ aachanging()
 # TODO: CNVs and SVs
 gene_summary()
 {
-    for k in 2 4 5 7 8
+    for k in 2 4 6 7 8
     do 
 	patient=patient_$k
 	INDIR=/work/projects/melanomics/analysis/genome/variants2/filter/$patient/somatic/indels/
@@ -63,8 +63,8 @@ annotations()
 # tawk '$73!=""' /work/projects/melanomics/analysis/genome/variants2/filter/patient_2/patient_2.somatic.testvariants.annotated |cut -f73
 
 # Pipeline
-cd ..
+
 rare
-#aachanging
+aachanging
 #gene_summary
-cd indels
+
