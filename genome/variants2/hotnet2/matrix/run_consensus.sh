@@ -15,7 +15,8 @@
 
 echo OAR_JOB_ID = $OAR_JOB_ID
 work_dir=/work/projects/melanomics/tools/hotnet/hotnet2/
-OUTDIR=/scratch/users/akrishna/hotnet2/consensus/
+#OUTDIR=/scratch/users/akrishna/hotnet2/consensus/
+OUTDIR=/work/projects/melanomics/analysis/genome/variants2/hotnet/consensus/
 min_cc_size=2
 mkdir -v $OUTDIR
 

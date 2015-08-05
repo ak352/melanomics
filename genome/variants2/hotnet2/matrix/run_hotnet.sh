@@ -41,10 +41,12 @@ threshold=0.1
 heat_file=/work/projects/melanomics/analysis/genome/variants2/hotnet/mutsig.$threshold.out
 num_perm=100
 infmat_file=/work/projects/melanomics/tools/hotnet/hotnet2/influence_matrices/irefindex/iref_ppr_0.55.mat
-deltas=/scratch/users/akrishna/hotnet2/iref/delta/delta.$threshold.medians
-mut_deltas=/scratch/users/akrishna/hotnet2/iref/delta/delta.mutation.medians
+#deltas=/scratch/users/akrishna/hotnet2/iref/delta/delta.$threshold.medians
+deltas=/work/projects/melanomics/analysis/genome/variants2/hotnet/iref/delta/delta.$threshold.medians
 
-OUTDIR=/scratch/users/akrishna/hotnet2/iref/hotnet
+
+#OUTDIR=/scratch/users/akrishna/hotnet2/iref/hotnet
+OUTDIR=/work/projects/melanomics/analysis/genome/variants2/hotnet/iref/hotnet
 mkdir -v $OUTDIR
 OUTDIR=$OUTDIR/$threshold
 mkdir -v $OUTDIR

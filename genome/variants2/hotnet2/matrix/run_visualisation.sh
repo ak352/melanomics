@@ -22,10 +22,12 @@ echo OAR_JOB_ID = $OAR_JOB_ID
 work_dir=/work/projects/melanomics/tools/hotnet/hotnet2_mutsigpval/bin/
 
 threshold=0.1
-INDIR=/scratch/users/akrishna/hotnet2/iref/hotnet/$threshold
+#INDIR=/scratch/users/akrishna/hotnet2/iref/hotnet/$threshold
+INDIR=/work/projects/melanomics/analysis/genome/variants2/hotnet/iref/hotnet/iref/hotnet/$threshold
 edge_file=/work/projects/melanomics/tools/hotnet/hotnet2/influence_matrices/irefindex/iref_edge_list
 network_name=iref_mutsigcv_$threshold
-OUTDIR=/scratch/users/akrishna/hotnet2/iref/visualisation
+#OUTDIR=/scratch/users/akrishna/hotnet2/iref/visualisation
+OUTDIR=/work/projects/melanomics/analysis/genome/variants2/hotnet/iref/hotnet/iref/visualisation
 mkdir -v $OUTDIR
 OUTDIR=$OUTDIR/$threshold
 mkdir -v $OUTDIR
