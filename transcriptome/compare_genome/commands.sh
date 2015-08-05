@@ -2,7 +2,7 @@ PATH=/work/projects/melanomics/tools/bcftools/bcftools-1.2/:$PATH
 PATH=/work/projects/melanomics/tools/vcftools/vcftools_0.1.12a/bin/:$PATH
 export PATH
 
-patient=patient_2
+patient=patient_6
 
 ref=/mnt/gaiagpfs/projects/melanomics/data/NCBI/Homo_sapiens/NCBI/build37.2/Sequence/WholeGenomeFasta/genome.fa
 rna_snp_vcf=/work/projects/melanomics/analysis/transcriptome/snv_indels/$patient.fasd.vcf
@@ -44,14 +44,8 @@ norm()
 
 compare()
 {
-    #mkdir -v $OUTDIR/$patient/
-
     cmd="bcftools stats -c none ${dna%.vcf.gz}.norm.vcf.gz ${rna_snp%.vcf.gz}.norm.vcf.gz > $OUTDIR/$patient.dna.rna.stats"
     echo $cmd; eval $cmd
-    #cmd="vcf-compare ${dna%.vcf.gz}.norm.vcf.gz ${rna_snp%.vcf.gz}.norm.vcf.gz > $OUTDIR/$patient.dna.rna.compare.stats"
-    #echo $cmd; eval $cmd
-
-    
 }    
 
 

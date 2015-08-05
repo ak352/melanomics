@@ -22,10 +22,12 @@ echo OAR_JOB_ID = $OAR_JOB_ID
 work_dir=/work/projects/melanomics/tools/hotnet/hotnet2_mutsigpval/bin/
 
 
-INDIR=/scratch/users/akrishna/hotnet2/iref/hotnet/mutation_blacklist
+#INDIR=/scratch/users/akrishna/hotnet2/iref/hotnet/mutation_blacklist
+INDIR=/work/projects/melanomics/analysis/genome/variants2/hotnet/iref/hotnet/mutation_blacklist
 edge_file=/work/projects/melanomics/tools/hotnet/hotnet2/influence_matrices/irefindex/iref_edge_list
 network_name=iref_mutation
-OUTDIR=/scratch/users/akrishna/hotnet2/iref/visualisation/mutation_blacklist
+#OUTDIR=/scratch/users/akrishna/hotnet2/iref/visualisation/mutation_blacklist
+OUTDIR=/work/projects/melanomics/analysis/genome/variants2/hotnet/iref/visualisation/mutation_blacklist
 mkdir -v $OUTDIR
 
 config_dir=$OUTDIR/config

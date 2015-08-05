@@ -48,7 +48,8 @@ heat_file=/work/projects/melanomics/analysis/genome/variants2/hotnet/mutation.bl
 num_perm=100
 cores=-1 #All available cores used when cores = -1
 permuted_networks_path=/scratch/users/akrishna/hotnet2/iref/matrix/iref_matrix.##NUM##_ppr_0.6.mat 	
-OUTDIR=/scratch/users/akrishna/hotnet2/iref/delta
+#OUTDIR=/scratch/users/akrishna/hotnet2/iref/delta
+OUTDIR=/work/projects/melanomics/analysis/genome/variants2/hotnet/iref/delta
 mkdir -v $OUTDIR
 output=$OUTDIR/delta.mutation.blacklist
 

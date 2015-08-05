@@ -34,11 +34,19 @@ echo Output: $output
 
 
 
+# (echo "mutation"; \
+#  echo "--snv_file /work/projects/melanomics/analysis/genome/variants2/hotnet/mutations/snv.blacklist_filt"; \
+#  echo "--cna_file /work/projects/melanomics/analysis/genome/variants2/hotnet/mutations/cnv"; \
+#  echo "--min_freq 1"; \
+#  echo "--sample_file /scratch/users/akrishna/hotnet2/iref/visualisation/mutation/samples_file"; \
+#  echo "--output_file $output"; ) > $config
+
+
 (echo "mutation"; \
  echo "--snv_file /work/projects/melanomics/analysis/genome/variants2/hotnet/mutations/snv.blacklist_filt"; \
  echo "--cna_file /work/projects/melanomics/analysis/genome/variants2/hotnet/mutations/cnv"; \
  echo "--min_freq 1"; \
- echo "--sample_file /scratch/users/akrishna/hotnet2/iref/visualisation/mutation/samples_file"; \
+ echo "--sample_file /work/projects/melanomics/analysis/genome/variants2/hotnet/iref/visualisation/mutation/samples_file"; \
  echo "--output_file $output"; ) > $config
 
 

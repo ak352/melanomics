@@ -44,9 +44,12 @@ heat_file=/work/projects/melanomics/analysis/genome/variants2/hotnet/mutation.bl
 num_perm=100
 infmat_file=/work/projects/melanomics/tools/hotnet/hotnet2/influence_matrices/irefindex/iref_ppr_0.55.mat
 #deltas=/scratch/users/akrishna/hotnet2/iref/delta/delta.mutation.medians
-deltas=/scratch/users/akrishna/hotnet2/iref/delta/delta.mutation.blacklist.medians
+#deltas=/scratch/users/akrishna/hotnet2/iref/delta/delta.mutation.blacklist.medians
+#deltas=/scratch/users/akrishna/hotnet2/iref/delta/delta.mutation.medians
+deltas=/work/projects/melanomics/analysis/genome/variants2/hotnet/iref/delta/delta.mutation.blacklist.medians
 
-OUTDIR=/scratch/users/akrishna/hotnet2/iref/hotnet
+#OUTDIR=/scratch/users/akrishna/hotnet2/iref/hotnet
+OUTDIR=/work/projects/melanomics/analysis/genome/variants2/hotnet/iref/hotnet
 mkdir -v $OUTDIR
 # OUTDIR=$OUTDIR/mutation
 OUTDIR=$OUTDIR/mutation_blacklist
