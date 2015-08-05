@@ -3,7 +3,7 @@ PATH=/work/projects/melanomics/tools/vcftools/vcftools_0.1.12a/bin/:$PATH
 export PATH
 
 #patient=patient_4
-dna_sample=patient_4_PM
+dna_sample=patient_4_NS
 
 ref=/mnt/gaiagpfs/projects/melanomics/data/NCBI/Homo_sapiens/NCBI/build37.2/Sequence/WholeGenomeFasta/genome.fa
 rna_snp_vcf=/work/projects/melanomics/analysis/transcriptome/snv_indels/$dna_sample.fasd.vcf
