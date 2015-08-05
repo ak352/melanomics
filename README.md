@@ -12,6 +12,7 @@
 3. [Hotspot analysis](genome/variants2/hotspot/)
 4. [SNV density and hom-het ratio for Circos/POMO](genome/variants2/density/)
 5. [DNA/RNA SNV comparison](transcriptome/compare_genome)
+6. Somatic indels - [filtering based on frequency and amino-acid changing indels](genome/variants2/filter/VCF/somatic/genes/indels)
 
 ### Not in this git
 **Data** (external databases), **Analysis** (output files), **Tools** (3rd party tools)
