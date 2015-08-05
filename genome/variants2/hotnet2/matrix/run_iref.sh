@@ -60,5 +60,5 @@ parallel_create_matrix()
     
 }
 
-# make_input
+make_input
 parallel_create_matrix

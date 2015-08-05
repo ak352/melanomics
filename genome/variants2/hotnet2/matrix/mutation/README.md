@@ -1,5 +1,11 @@
 ### HotNet2 Mutation Pipeline
 
+#### Create influence matrices before running HotNet2
+This part takes a few hours but only needs to be done once. The approximate storage size for these networks is 1 TB.
+1. Download permuted networks
+2. Run ```run_iref.sh``` to create the influence matrices for each permuted network using GNU parallel.
+**This has already been done once and the results are stored in my $SCRATCH/hotnet2/iref/matrix/ directory**
+
 #### Prepare mutation input
 These scripts prepare input files for HotNet2 and run the pipeline for HotNet2
 

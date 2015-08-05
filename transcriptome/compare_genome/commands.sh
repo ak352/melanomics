@@ -2,11 +2,11 @@ PATH=/work/projects/melanomics/tools/bcftools/bcftools-1.2/:$PATH
 PATH=/work/projects/melanomics/tools/vcftools/vcftools_0.1.12a/bin/:$PATH
 export PATH
 
-patient=patient_4
+#patient=patient_4
 dna_sample=patient_4_PM
 
 ref=/mnt/gaiagpfs/projects/melanomics/data/NCBI/Homo_sapiens/NCBI/build37.2/Sequence/WholeGenomeFasta/genome.fa
-rna_snp_vcf=/work/projects/melanomics/analysis/transcriptome/snv_indels/$patient.fasd.vcf
+rna_snp_vcf=/work/projects/melanomics/analysis/transcriptome/snv_indels/$dna_sample.fasd.vcf
 dna_all=/work/projects/melanomics/analysis/genome/variants2/intermediate/all.dna.coverage_annotated.vcf.gz
 OUTDIR=/work/projects/melanomics/analysis/transcriptome/compare_genome/
 mkdir -v $OUTDIR
