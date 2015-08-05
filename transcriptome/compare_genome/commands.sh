@@ -2,7 +2,8 @@ PATH=/work/projects/melanomics/tools/bcftools/bcftools-1.2/:$PATH
 PATH=/work/projects/melanomics/tools/vcftools/vcftools_0.1.12a/bin/:$PATH
 export PATH
 
-patient=patient_6
+patient=patient_4
+dna_sample=patient_4_PM
 
 ref=/mnt/gaiagpfs/projects/melanomics/data/NCBI/Homo_sapiens/NCBI/build37.2/Sequence/WholeGenomeFasta/genome.fa
 rna_snp_vcf=/work/projects/melanomics/analysis/transcriptome/snv_indels/$patient.fasd.vcf
@@ -11,13 +12,13 @@ OUTDIR=/work/projects/melanomics/analysis/transcriptome/compare_genome/
 mkdir -v $OUTDIR
 
 #output files
-dna=$OUTDIR/$patient.dna.vcf.gz
+dna=$OUTDIR/$dna_sample.dna.vcf.gz
 rna_snp=$rna_snp_vcf.gz
 
 
 extract_dna()
 {
-    cmd="bcftools view -s ${patient}_PM $dna_all -O z | bcftools view -g ^miss -e 'GT==\"0/0\"' -O z > $dna;"
+    cmd="bcftools view -s ${dna_sample} $dna_all -O z | bcftools view -g ^miss -e 'GT==\"0/0\"' -O z > $dna;"
     cmd="$cmd bcftools index -f $dna;"
     echo $cmd; eval $cmd
     grep -v '^##'  $dna| head 
@@ -44,7 +45,7 @@ norm()
 
 compare()
 {
-    cmd="bcftools stats -c none ${dna%.vcf.gz}.norm.vcf.gz ${rna_snp%.vcf.gz}.norm.vcf.gz > $OUTDIR/$patient.dna.rna.stats"
+    cmd="bcftools stats -c none ${dna%.vcf.gz}.norm.vcf.gz ${rna_snp%.vcf.gz}.norm.vcf.gz > $OUTDIR/$dna_sample.dna.rna.stats"
     echo $cmd; eval $cmd
 }    
 
