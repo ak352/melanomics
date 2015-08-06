@@ -1,0 +1,6 @@
+#!/bin/bash --login
+
+TOOLS=/work/projects/melanomics/tools
+PATH=$TOOLS/samtools/samtools:$PATH
+PATH=$TOOLS//bedtools/bedtools2/bin:$PATH
+
