@@ -1,0 +1,2 @@
+PYTHONPATH=/work/projects/melanomics/tools/pysam/pysam-0.6/release/lib/python2.6/site-packages/:$PYTHONPATH
+
