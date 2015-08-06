@@ -1,0 +1,6 @@
+patient_2	/work/projects/melanomics/analysis/transcriptome/patient_2/NCBI_FaSD_patient_2/patient_2.bam
+patient_4_NS	/work/projects/melanomics/analysis/transcriptome/patient_4_NS/NCBI_FaSD_patient_4_NS/patient_4_NS.bam
+patient_4_PM	/work/projects/melanomics/analysis/transcriptome/patient_4_PM/NCBI_FaSD_patient_4_PM/patient_4_PM.bam
+patient_6	/work/projects/melanomics/analysis/transcriptome/patient_6/NCBI_FaSD_patient_6/patient_6.bam
+pool	/work/projects/melanomics/analysis/transcriptome/pool/NCBI_FaSD_pool/pool.bam
+NHEM	/work/projects/melanomics/analysis/transcriptome/NHEM/NCBI_FaSD_NHEM/NHEM.bam

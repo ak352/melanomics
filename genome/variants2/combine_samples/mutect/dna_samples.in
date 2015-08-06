@@ -1,0 +1,6 @@
+patient_2	/work/projects/melanomics/analysis/genome/mutect/patient_2.vcf	/work/projects/melanomics/analysis/genome/patient_2_PM/bam/patient_2_PM.bam
+patient_4	/work/projects/melanomics/analysis/genome/mutect/patient_4.vcf	/work/projects/melanomics/analysis/genome/patient_4_PM/bam/patient_4_PM.bam
+patient_5	/work/projects/melanomics/analysis/genome/mutect/patient_5.vcf	/work/projects/melanomics/analysis/genome/patient_5_PM/bam/patient_5_PM.bam
+patient_6	/work/projects/melanomics/analysis/genome/mutect/patient_6.vcf	/work/projects/melanomics/analysis/genome/patient_6_PM/bam/patient_6_PM.bam
+patient_7	/work/projects/melanomics/analysis/genome/mutect/patient_7.vcf	/work/projects/melanomics/analysis/genome/patient_7_PM/bam/patient_7_PM.bam
+patient_8	/work/projects/melanomics/analysis/genome/mutect/patient_8.vcf	/work/projects/melanomics/analysis/genome/patient_8_PM/bam/patient_8_PM.bam

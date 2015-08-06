@@ -1,0 +1,13 @@
+NHEM /work/projects/melanomics/analysis/genome/variants2/NHEM.indel.snp.vcf /work/projects/melanomics/analysis/genome/NHEM/bam/NHEM.bam
+patient_2_NS /work/projects/melanomics/analysis/genome/variants2/patient_2_NS.indel.snp.vcf /work/projects/melanomics/analysis/genome/patient_2_NS/bam/patient_2_NS.bam
+patient_2_PM /work/projects/melanomics/analysis/genome/variants2/patient_2_PM.indel.snp.vcf /work/projects/melanomics/analysis/genome/patient_2_PM/bam/patient_2_PM.bam
+patient_4_NS /work/projects/melanomics/analysis/genome/variants2/patient_4_NS.indel.snp.vcf /work/projects/melanomics/analysis/genome/patient_4_NS/bam/patient_4_NS.bam
+patient_4_PM /work/projects/melanomics/analysis/genome/variants2/patient_4_PM.indel.snp.vcf /work/projects/melanomics/analysis/genome/patient_4_PM/bam/patient_4_PM.bam
+patient_5_NS /work/projects/melanomics/analysis/genome/variants2/patient_5_NS.indel.snp.vcf /work/projects/melanomics/analysis/genome/patient_5_NS/bam/patient_5_NS.bam
+patient_5_PM /work/projects/melanomics/analysis/genome/variants2/patient_5_PM.indel.snp.vcf /work/projects/melanomics/analysis/genome/patient_5_PM/bam/patient_5_PM.bam
+patient_6_NS /work/projects/melanomics/analysis/genome/variants2/patient_6_NS.indel.snp.vcf /work/projects/melanomics/analysis/genome/patient_6_NS/bam/patient_6_NS.bam
+patient_6_PM /work/projects/melanomics/analysis/genome/variants2/patient_6_PM.indel.snp.vcf /work/projects/melanomics/analysis/genome/patient_6_PM/bam/patient_6_PM.bam
+patient_7_NS /work/projects/melanomics/analysis/genome/variants2/patient_7_NS.indel.snp.vcf /work/projects/melanomics/analysis/genome/patient_7_NS/bam/patient_7_NS.bam
+patient_7_PM /work/projects/melanomics/analysis/genome/variants2/patient_7_PM.indel.snp.vcf /work/projects/melanomics/analysis/genome/patient_7_PM/bam/patient_7_PM.bam
+patient_8_NS /work/projects/melanomics/analysis/genome/variants2/patient_8_NS.indel.snp.vcf /work/projects/melanomics/analysis/genome/patient_8_NS/bam/patient_8_NS.bam
+patient_8_PM /work/projects/melanomics/analysis/genome/variants2/patient_8_PM.indel.snp.vcf /work/projects/melanomics/analysis/genome/patient_8_PM/bam/patient_8_PM.bam
