@@ -1,0 +1,5 @@
+PATH=/work/projects/melanomics/tools/bedtools/bedtools2/bin/:$PATH
+PATH=/work/projects/melanomics/tools/vcftools/vcftools_0.1.12a/bin/:$PATH
+PERL5LIB=/work/projects/melanomics/tools/vcftools/vcftools_0.1.12a/lib/perl5/site_perl/:$PERL5LIB
+export PATH
+
