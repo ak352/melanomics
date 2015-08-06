@@ -1,0 +1,16 @@
+SUMMARY:
+Total number of mutations in COSMIC = 8789738
+Confirmed somatic variants in COSMIC = 1566889
+Confirmed somatic variants in COSMIC which do not have a genomic location = 6407
+Confirmed somatic variants with genomic locations = 1560482
+[Tue Feb 10 15:29:14 CET 2015] Output written to /work/projects/melanomics/data/cosmic/CosmicCompleteExport.edited.tsv
+1560483 /work/projects/melanomics/data/cosmic/CosmicCompleteExport.edited.tsv
+SUMMARY for COSMIC mutations (skin):
+Total number of mutations in COSMIC = 501616
+Confirmed somatic variants in COSMIC = 377132
+Confirmed somatic variants in COSMIC which do not have a genomic location = 537
+Confirmed somatic variants with genomic locations = 376595
+[Tue Feb 10 15:29:33 CET 2015] Output written to /work/projects/melanomics/data/cosmic/CosmicCompleteExport.edited.skin.tsv
+376596 /work/projects/melanomics/data/cosmic/CosmicCompleteExport.edited.skin.tsv
+[Tue Feb 10 15:29:33 CET 2015] Output written to /work/projects/melanomics/data/cosmic/CosmicCompleteExport.edited.skin.tsv.pmids
+178 /work/projects/melanomics/data/cosmic/CosmicCompleteExport.edited.skin.tsv.pmids
