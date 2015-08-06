@@ -1,0 +1,8 @@
+{
+    "normal":
+    {"lower":  8,
+     "upper": 200},
+    "tumor":
+    {"lower": 14,
+     "upper": 200}
+}
